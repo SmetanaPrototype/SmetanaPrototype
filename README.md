@@ -45,14 +45,3 @@
   <img src="https://shields.io" alt="Chromium" />
 </p>
 
----
-
-### 📊 Статистика активности
-
-<p align="center">
-  <img src="https://vercel.app" alt="GitHub Stats" />
-</p>
-
-<p align="center">
-  <img src="https://vercel.app" alt="Top Languages" />
-</p>
