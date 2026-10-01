@@ -1,16 +1,58 @@
-## Hi there 👋
+<h1 align="center">Привет, я Владимир Сметана 👋</h1>
+<h3 align="center">C++ / Python Developer & Системный инженер</h3>
 
-<!--
-**SmetanaPrototype/SmetanaPrototype** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+<p align="center">
+  <a href="https://t.me">
+    <img src="https://shields.io" alt="Telegram">
+  </a>
+  <a href="https://linkedin.com">
+    <img src="https://shields.io" alt="LinkedIn">
+  </a>
+  <a href="mailto:твой_email@example.com">
+    <img src="https://shields.io" alt="Email">
+  </a>
+</p>
 
-Here are some ideas to get you started:
+---
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### 💻 Обо мне
+
+Я специализируюсь на низкоуровневой и серверной разработке, создании автоматизаций и работе с открытым исходным кодом. Интересуюсь внутренним устройством браузеров и системным программированием.
+
+- 🛠️ Разрабатываю высокопроизводительные приложения на **C++** и эффективные скрипты на **Python**.
+- 🐧 Уверенно чувствую себя в окружении **Linux** и пишу автоматизации на **Bash**.
+- 🔍 Имею опыт работы с кодовой базой **Chromium** и сопутствующими инструментами автоматизации.
+- 🌐 Применяю **Java**, **JavaScript** и **SQL** для решения смежных и инфраструктурных задач.
+
+---
+
+### 🛠️ Стек технологий
+
+#### Языки программирования & Базы данных
+<p>
+  <img src="https://shields.io" alt="C++" />
+  <img src="https://shields.io" alt="Python" />
+  <img src="https://shields.io" alt="Java" />
+  <img src="https://shields.io" alt="JavaScript" />
+  <img src="https://shields.io" alt="SQL" />
+</p>
+
+#### Окружение, Инструменты & Браузерные технологии
+<p>
+  <img src="https://shields.io" alt="Linux" />
+  <img src="https://shields.io" alt="Bash" />
+  <img src="https://shields.io" alt="Git" />
+  <img src="https://shields.io" alt="Chromium" />
+</p>
+
+---
+
+### 📊 Статистика активности
+
+<p align="center">
+  <img src="https://vercel.app" alt="GitHub Stats" />
+</p>
+
+<p align="center">
+  <img src="https://vercel.app" alt="Top Languages" />
+</p>
