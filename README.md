@@ -2,6 +2,9 @@
 <h3 align="center">C++ / Python Developer & Системный инженер</h3>
 
 <p align="center">
+  <a href="[https://t.me](https://vk.ru/felix_felicisus)">
+    <img src="https://shields.io" alt="VK">
+  </a>
   <a href="https://t.me">
     <img src="https://shields.io" alt="Telegram">
   </a>
