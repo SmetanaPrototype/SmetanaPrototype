@@ -17,9 +17,12 @@
 </p>
 
 ---
-<p align="center">
-<img src="https://user-images.githubusercontent.com/74038190/212749447-bfb7e725-6987-49d9-ae85-2015e3e7cc41.gif" width="500">
-<br>
+<table>
+<tr>
+<td valign="middle" width="40%">
+  <img src="https://user-images.githubusercontent.com/74038190/212749447-bfb7e725-6987-49d9-ae85-2015e3e7cc41.gif" width="100%" alt="coding gif" />
+</td>
+<td valign="top" width="60%">
 
 ### 💻 Обо мне
 
@@ -30,9 +33,16 @@
 - 🔍 Имею опыт работы с кодовой базой **Chromium** и сопутствующими инструментами автоматизации.
 - 🌐 Применяю **Java**, **JavaScript** и **SQL** для решения смежных и инфраструктурных задач.
 
----
+</td>
+</tr>
+</table>
 
+---
 ### 🛠️ Стек технологий
+
+<table>
+<tr>
+<td valign="top" width="60%">
 
 #### Языки программирования & Базы данных
 <p>
@@ -56,3 +66,14 @@
   <img src="https://img.shields.io/badge/Windows%20Shell-0078D6?style=for-the-badge&logo=powershell&logoColor=white" alt="Windows Shell" />
 </p>
 
+</td>
+<td valign="top" width="40%">
+
+#### 📊 Most Used Languages
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SmetanaPrototype&layout=donut&theme=tokyonight&hide_border=true&langs_count=8" alt="Top Languages" width="100%" />
+</p>
+
+</td>
+</tr>
+</table>
