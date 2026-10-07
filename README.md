@@ -71,7 +71,7 @@
 
 #### 📊 Most Used Languages
 <p align="center">
-  <img src="https://vercel.app" alt="Top Languages" width="100%" />
+  <img src="[https://vercel.app](https://github-readme-stats.vercel.app/api/top-langs/?username=SmetanaPrototype&layout=donut&theme=tokyonight&hide_border=true&langs_count=8)" alt="Top Languages" width="100%" />
 </p>
 
 </td>
