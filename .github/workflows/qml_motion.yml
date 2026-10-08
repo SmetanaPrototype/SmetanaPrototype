@@ -7,6 +7,7 @@ on:
     branches: [ main, master ]
   release:
     types: [ published ]
+  workflow_dispatch:
 
 jobs:
   build-windows:
@@ -19,9 +20,9 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: '6.8.2' # Укажите вашу версию Qt
-        modules: 'qtbase qtdeclarative' # Для QML нужен qtdeclarative
+        version: '6.8.2'
         cache: true
+        add-tools-to-path: true
 
     - name: Configure CMake
       run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
@@ -29,14 +30,14 @@ jobs:
     - name: Build
       run: cmake --build build --config Release
 
-    - name: Deploy Qt dependencies (для QML)
+    - name: Deploy Qt dependencies
       run: |
         windeployqt --qmldir . build/Release/motion.exe
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: YourApp-Windows
+        name: motion-Windows
         path: |
           build/Release/motion.exe
           build/Release/*.dll
