@@ -1,5 +1,5 @@
-<h1 align="center">Привет, я Владимир Сметана 👋</h1>
-<h3 align="center">C++ / Python Developer & Системный инженер</h3>
+<h1 align="center">Hi, I'm Vladimir Smetana 👋</h1>
+<h3 align="center">C++ / Python Developer & Systems Engineer</h3>
 
 <p align="center">
   <a href="https://vk.ru/felix_felicisus">
@@ -21,27 +21,27 @@
 </td>
 <td valign="top" width="60%">
 
-### 💻 Обо мне
+### 💻 About Me
 
-Я специализируюсь на низкоуровневой и серверной разработке, создании автоматизаций и работе с открытым исходным кодом. Интересуюсь внутренним устройством браузеров и системным программированием.
+I specialize in low-level and server-side development, building automations, and working with open source. I'm interested in browser internals and systems programming.
 
-- 🛠️ Разрабатываю высокопроизводительные приложения на **C++** и эффективные скрипты на **Python**.
-- 🐧 Уверенно чувствую себя в окружении **Linux** и пишу автоматизации на **Bash**.
-- 🔍 Имею опыт работы с кодовой базой **Chromium** и сопутствующими инструментами автоматизации.
-- 🌐 Применяю **Java**, **JavaScript** и **SQL** для решения смежных и инфраструктурных задач.
+- 🛠️ I develop high-performance applications in **C++** and efficient scripts in **Python**.
+- 🐧 I'm comfortable in **Linux** environments and write automation in **Bash**.
+- 🔍 I have experience working with the **Chromium** codebase and related automation tools.
+- 🌐 I use **Java**, **JavaScript**, and **SQL** for related and infrastructure tasks.
 
 </td>
 </tr>
 </table>
 
 ---
-### 🛠️ Стек технологий
+### 🛠️ Tech Stack
 
 <table>
 <tr>
 <td valign="top" width="60%">
 
-#### Языки программирования & Базы данных
+#### Programming Languages & Databases
 <p>
   <img src="https://img.shields.io/badge/C-A8B9CC?style=for-the-badge&logo=c&logoColor=black" alt="C" />
   <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++" />
@@ -52,7 +52,7 @@
   <img src="https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="SQL" />
 </p>
 
-#### Окружение, Инструменты & Браузерные технологии
+#### Environment, Tools & Browser Technologies
 <p>
   <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" />
   <img src="https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white" alt="Bash" />
