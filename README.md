@@ -11,9 +11,6 @@
   <a href="mailto:vladimirsmetana494@gmail.com">
     <img src="https://img.shields.io/badge/Email-vladimirsmetana494@gmail.com-EA4335?logo=gmail&logoColor=white" alt="Email">
   </a>
-  <a href="https://hh.ru/resume/твой-id" target="_blank" rel="noopener noreferrer">
-    <img src="https://img.shields.io/badge/hh.ru-Resume-0052CC?style=for-the-badge" alt="hh.ru Resume">
-  </a>
 </p>
 
 ---
@@ -86,3 +83,9 @@ I specialize in low-level and server-side development, building automations, and
 </td>
 </tr>
 </table>
+
+<p align="center">
+  <a href="https://samara.hh.ru/resume/9120e211ff0c3f7de80039ed1f697539493846" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/hh.ru-Resume-D6001C?style=for-the-badge" alt="hh.ru Resume">
+  </a>
+</p>
