@@ -32,13 +32,12 @@ jobs:
     - name: Deploy Qt dependencies (для QML)
       run: |
         windeployqt --qmldir . build/Release/motion.exe
-      # Замените YourApp.exe на имя вашего исполняемого файла
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: YourApp-Windows
         path: |
-          build/Release/YourApp.exe
+          build/Release/motion.exe
           build/Release/*.dll
           build/Release/qml/
