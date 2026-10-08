@@ -2,17 +2,17 @@
 <h3 align="center">C++ / Python Developer & Системный инженер</h3>
 
 <p align="center">
-  <a href="[https://t.me](https://vk.ru/felix_felicisus)">
-    <img src="https://shields.io" alt="VK">
+  <a href="https://vk.ru/felix_felicisus">
+    <img src="https://img.shields.io/badge/VK-felix__felicisus-0077FF?logo=vk&logoColor=white" alt="VK">
   </a>
-  <a href="[https://t.me](https://t.me/Vladimir_Smet)">
-    <img src="https://shields.io" alt="Telegram">
+  <a href="https://t.me/Vladimir_Smet">
+    <img src="https://img.shields.io/badge/Telegram-Vladimir__Smet-26A5E4?logo=telegram&logoColor=white" alt="Telegram">
   </a>
-  <a href="https://linkedin.com">
-    <img src="https://shields.io" alt="LinkedIn">
+  <a href="https://www.linkedin.com/in/ваш-профиль/">
+    <img src="https://img.shields.io/badge/LinkedIn-Profile-0A66C2?logo=linkedin&logoColor=white" alt="LinkedIn">
   </a>
   <a href="mailto:vladimirsmetana494@gmail.com">
-    <img src="https://shields.io" alt="Email">
+    <img src="https://img.shields.io/badge/Email-vladimirsmetana494@gmail.com-EA4335?logo=gmail&logoColor=white" alt="Email">
   </a>
 </p>
 
