@@ -5,13 +5,13 @@
   <a href="[https://t.me](https://vk.ru/felix_felicisus)">
     <img src="https://shields.io" alt="VK">
   </a>
-  <a href="https://t.me">
+  <a href="[https://t.me](https://t.me/Vladimir_Smet)">
     <img src="https://shields.io" alt="Telegram">
   </a>
   <a href="https://linkedin.com">
     <img src="https://shields.io" alt="LinkedIn">
   </a>
-  <a href="mailto:твой_email@example.com">
+  <a href="mailto:vladimirsmetana494@gmail.com">
     <img src="https://shields.io" alt="Email">
   </a>
 </p>
