@@ -11,6 +11,9 @@
   <a href="mailto:vladimirsmetana494@gmail.com">
     <img src="https://img.shields.io/badge/Email-vladimirsmetana494@gmail.com-EA4335?logo=gmail&logoColor=white" alt="Email">
   </a>
+  <a href="https://hh.ru/resume/твой-id" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/hh.ru-Resume-0052CC?style=for-the-badge" alt="hh.ru Resume">
+  </a>
 </p>
 
 ---
