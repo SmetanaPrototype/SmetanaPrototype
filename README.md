@@ -8,9 +8,6 @@
   <a href="https://t.me/Vladimir_Smet">
     <img src="https://img.shields.io/badge/Telegram-Vladimir__Smet-26A5E4?logo=telegram&logoColor=white" alt="Telegram">
   </a>
-  <a href="https://www.linkedin.com/in/ваш-профиль/">
-    <img src="https://img.shields.io/badge/LinkedIn-Profile-0A66C2?logo=linkedin&logoColor=white" alt="LinkedIn">
-  </a>
   <a href="mailto:vladimirsmetana494@gmail.com">
     <img src="https://img.shields.io/badge/Email-vladimirsmetana494@gmail.com-EA4335?logo=gmail&logoColor=white" alt="Email">
   </a>
