@@ -1,0 +1,44 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  release:
+    types: [ published ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '6.8.2' # Укажите вашу версию Qt
+        modules: 'qtbase qtdeclarative' # Для QML нужен qtdeclarative
+        cache: true
+
+    - name: Configure CMake
+      run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build
+      run: cmake --build build --config Release
+
+    - name: Deploy Qt dependencies (для QML)
+      run: |
+        windeployqt --qmldir . build/Release/motion.exe
+      # Замените YourApp.exe на имя вашего исполняемого файла
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: YourApp-Windows
+        path: |
+          build/Release/YourApp.exe
+          build/Release/*.dll
+          build/Release/qml/
