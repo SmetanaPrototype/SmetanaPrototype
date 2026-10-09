@@ -181,9 +181,9 @@
     </g>
   </g><g transform="translate(0, 224)">
     <g class="stagger" style="animation-delay: 1500ms">
-      <circle cx="5" cy="6" r="5" fill="#44a51c" />
+      <circle cx="5" cy="6" r="5" fill="#DA3434" />
       <text data-testid="lang-name" x="15" y="10" class='lang-name'>
-        QML 0.09%
+        CMake 0.09%
       </text>
     </g>
   </g>
@@ -273,7 +273,7 @@
           data-testid="lang-donut"
           size="0.09"
           d="M 116.66666666666671 60 A 56.66666666666667 56.66666666666667 0 0 0 116.34622592382352 60.00090602726964"
-          stroke="#44a51c"
+          stroke="#DA3434"
           fill="none"
           stroke-width="12">
         </path>
