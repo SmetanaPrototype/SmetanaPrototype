@@ -24,6 +24,17 @@
 </p>
 
 ---
+
+### 🎓 Education
+
+<p align="left">
+  <strong>Master of Technical Sciences</strong> — Rocket Complexes & Cosmonautics<br>
+  <strong>PhD Student (Aspirant)</strong> — Space Flight Dynamics
+</p>
+
+---
+
+---
 <table>
 <tr>
 <td valign="middle" width="40%">
