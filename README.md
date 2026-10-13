@@ -108,11 +108,11 @@ I specialize in low-level and server-side development, building automations, and
 
 <!-- CERTS_START -->
 
-| Компетенция | Источник | Раздел | Уровень | Действителен до | Файл |
-|---|---|---|---|---|---|
-| Linux | Национальная система оценки ИТ-компетенций | Теория | базовый уровень | 13.10.2027 | [PDF](./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| ООП | Национальная система оценки ИТ-компетенций | Теория | базовый уровень | 14.01.2027 | [PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| Git | Национальная система оценки ИТ-компетенций | Теория | базовый уровень | 14.01.2027 | [PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| Competency | Source | Section | Level | File |
+|---|---|---|---|---|
+| Git | National IT Competence Assessment System | Theory | junior | [PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| Linux | National IT Competence Assessment System | Theory | junior | [PDF](./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| ООП | National IT Competence Assessment System | Theory | junior | [PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
 
 <!-- CERTS_END -->
 

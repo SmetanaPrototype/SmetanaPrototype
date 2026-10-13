@@ -1,35 +1,26 @@
 [
   {
+    "file": "Git_Сертификат_ИТ_компетенций_форма_1.pdf",
+    "name": null,
+    "competency": "Git",
+    "section": "Theory",
+    "level": "junior",
+    "source": "National IT Competence Assessment System"
+  },
+  {
     "file": "Linux_Сертификат_ИТ_компетенций_форма_1.pdf",
-    "issuer": "Национальная система оценки ИТ-компетенций",
     "name": null,
     "competency": "Linux",
-    "section": "Теория",
-    "level": "базовый уровень",
-    "valid_until": "2027-10-13",
-    "valid_until_display": "13.10.2027",
-    "source": "Национальная система оценки ИТ-компетенций"
+    "section": "Theory",
+    "level": "junior",
+    "source": "National IT Competence Assessment System"
   },
   {
     "file": "OOP_Сертификат_ИТ_компетенций_форма_1.pdf",
-    "issuer": "Национальная система оценки ИТ-компетенций",
     "name": null,
     "competency": "ООП",
-    "section": "Теория",
-    "level": "базовый уровень",
-    "valid_until": "2027-01-14",
-    "valid_until_display": "14.01.2027",
-    "source": "Национальная система оценки ИТ-компетенций"
-  },
-  {
-    "file": "Git_Сертификат_ИТ_компетенций_форма_1.pdf",
-    "issuer": "Национальная система оценки ИТ-компетенций",
-    "name": null,
-    "competency": "Git",
-    "section": "Теория",
-    "level": "базовый уровень",
-    "valid_until": "2027-01-14",
-    "valid_until_display": "14.01.2027",
-    "source": "Национальная система оценки ИТ-компетенций"
+    "section": "Theory",
+    "level": "junior",
+    "source": "National IT Competence Assessment System"
   }
 ]
