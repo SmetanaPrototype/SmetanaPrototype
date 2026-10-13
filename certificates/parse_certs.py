@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 """
-Парсер PDF-сертификатов «Национальная система оценки ИТ-компетенций».
-PDF лежат в certificates/files/.
-Обновляет README.md в корне и сохраняет данные в certificates/certificates.json.
+Parser for PDF certificates issued by the
+National IT Competence Assessment System.
+PDFs are stored in certificates/files/.
+Updates README.md in the repo root and saves data to certificates/certificates.json.
 """
 
 import json
 import re
 import sys
-from datetime import datetime
 from pathlib import Path
 
 try:
     import fitz  # PyMuPDF
 except ImportError:
-    sys.exit("Установите PyMuPDF: pip install pymupdf")
+    sys.exit("Install PyMuPDF: pip install pymupdf")
 
 ROOT = Path(__file__).resolve().parent.parent
 CERT_DIR = ROOT / "certificates" / "files"
@@ -25,8 +25,21 @@ START_MARKER = "<!-- CERTS_START -->"
 END_MARKER = "<!-- CERTS_END -->"
 PDF_GLOB = "*Сертификат*.pdf"
 
-# Источник по умолчанию (можно переопределить в certificates.json вручную)
-DEFAULT_SOURCE_NAME = "Национальная система оценки ИТ-компетенций"
+# Default source name (can be overridden per-entry in certificates.json)
+DEFAULT_SOURCE_NAME = "National IT Competence Assessment System"
+
+# Map Russian level names from the PDF to English labels
+LEVEL_MAP = {
+    "базовый": "junior",
+    "продвинутый": "middle",
+    "экспертный": "senior",
+}
+
+# Map Russian section names to English
+SECTION_MAP = {
+    "теория": "Theory",
+    "практика": "Practice",
+}
 
 
 def extract_text(pdf_path: Path) -> str:
@@ -41,20 +54,19 @@ def parse_certificate(pdf_path: Path) -> dict:
 
     data = {
         "file": pdf_path.name,
-        "issuer": DEFAULT_SOURCE_NAME,
         "name": None,
         "competency": None,
         "section": None,
         "level": None,
-        "valid_until": None,
-        "valid_until_display": None,
         "source": DEFAULT_SOURCE_NAME,
     }
 
+    # Full name
     m = re.search(r"КОМПЕТЕНЦИЙ\s+(.+?)\s+подтвердил", text)
     if m:
         data["name"] = m.group(1).strip()
 
+    # Competency
     m = re.search(
         r"подтвердил\s+ИТ-компетенцию\s+(.+?)\s+"
         r"(?:Теория|Практика|базовый|продвинутый|экспертный)",
@@ -64,23 +76,17 @@ def parse_certificate(pdf_path: Path) -> dict:
     if m:
         data["competency"] = m.group(1).strip()
 
+    # Section: Theory / Practice
     m = re.search(r"\b(Теория|Практика)\b", text, re.IGNORECASE)
     if m:
-        data["section"] = m.group(1).capitalize()
+        data["section"] = SECTION_MAP.get(m.group(1).lower(), m.group(1).capitalize())
 
+    # Level: junior / middle / senior
     m = re.search(r"\b(базовый|продвинутый|экспертный)\s+уровень", text, re.IGNORECASE)
     if m:
-        data["level"] = m.group(0).strip().lower()
+        data["level"] = LEVEL_MAP.get(m.group(1).lower(), m.group(1).lower())
 
-    m = re.search(r"действителен до:\s*(\d{2}\.\d{2}\.\d{4})", text)
-    if m:
-        display = m.group(1)
-        data["valid_until_display"] = display
-        try:
-            data["valid_until"] = datetime.strptime(display, "%d.%m.%Y").strftime("%Y-%m-%d")
-        except ValueError:
-            pass
-
+    # Fallback: competency from filename prefix
     if not data["competency"]:
         guess = pdf_path.name.split("_")[0]
         if guess:
@@ -91,7 +97,7 @@ def parse_certificate(pdf_path: Path) -> dict:
 
 def collect_certificates() -> list[dict]:
     if not CERT_DIR.exists():
-        print(f"[!] Папка не найдена: {CERT_DIR}", file=sys.stderr)
+        print(f"[!] Folder not found: {CERT_DIR}", file=sys.stderr)
         return []
 
     certs = []
@@ -100,35 +106,31 @@ def collect_certificates() -> list[dict]:
             try:
                 certs.append(parse_certificate(pdf))
             except Exception as e:
-                print(f"[!] Ошибка при парсинге {pdf.name}: {e}", file=sys.stderr)
+                print(f"[!] Failed to parse {pdf.name}: {e}", file=sys.stderr)
 
-    certs.sort(
-        key=lambda c: (c.get("valid_until") or "", c.get("competency") or ""),
-        reverse=True,
-    )
+    certs.sort(key=lambda c: (c.get("competency") or "").lower())
     return certs
 
 
 def render_markdown(certs: list[dict]) -> str:
     if not certs:
-        return f"{START_MARKER}\n_Сертификаты пока не добавлены._\n{END_MARKER}"
+        return f"{START_MARKER}\n_No certificates yet._\n{END_MARKER}"
 
     lines = [
         START_MARKER,
         "",
-        "| Компетенция | Источник | Раздел | Уровень | Действителен до | Файл |",
-        "|---|---|---|---|---|---|",
+        "| Competency | Source | Section | Level | File |",
+        "|---|---|---|---|---|",
     ]
     for c in certs:
         competency = c.get("competency") or "—"
+        source = c.get("source") or DEFAULT_SOURCE_NAME
         section = c.get("section") or "—"
         level = c.get("level") or "—"
-        valid = c.get("valid_until_display") or "—"
-        source = c.get("source") or c.get("issuer") or "—"
         file_link = f"[PDF](./certificates/files/{c['file']})" if c.get("file") else "—"
 
         lines.append(
-            f"| {competency} | {source} | {section} | {level} | {valid} | {file_link} |"
+            f"| {competency} | {source} | {section} | {level} | {file_link} |"
         )
 
     lines += ["", END_MARKER]
@@ -159,7 +161,7 @@ def update_readme(block: str) -> bool:
 
 def main() -> int:
     certs = collect_certificates()
-    print(f"Найдено сертификатов: {len(certs)}")
+    print(f"Certificates found: {len(certs)}")
 
     CERTS_JSON.parent.mkdir(parents=True, exist_ok=True)
     CERTS_JSON.write_text(
@@ -169,12 +171,8 @@ def main() -> int:
 
     block = render_markdown(certs)
     changed = update_readme(block)
-    print("README обновлён." if changed else "README без изменений.")
+    print("README updated." if changed else "README unchanged.")
     return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
 
 
 if __name__ == "__main__":
