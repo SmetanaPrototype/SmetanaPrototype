@@ -35,13 +35,13 @@ LEVEL_MAP = {
     "экспертный": "senior",
 }
 
-# Badge colors for shields.io (hex without '#')
-LEVEL_COLORS = {
-    "junior": "B8860B",   # dark yellow
-    "middle": "006400",   # dark green
-    "senior": "8B0000",   # dark red
+# Colored emoji per level
+LEVEL_EMOJI = {
+    "junior": "🟡",
+    "middle": "🟢",
+    "senior": "🔴",
 }
-DEFAULT_LEVEL_COLOR = "555555"
+DEFAULT_LEVEL_EMOJI = "⚪"
 
 # Map Russian section names to English
 SECTION_MAP = {
@@ -120,18 +120,13 @@ def collect_certificates() -> list[dict]:
     return certs
 
 
-def render_level_badge(level: str | None) -> str:
-    """Return a shields.io badge image for the given level."""
+def render_level(level: str | None) -> str:
+    """Return level label prefixed with a colored emoji."""
     if not level:
         return "—"
-
     key = level.lower()
-    color = LEVEL_COLORS.get(key, DEFAULT_LEVEL_COLOR)
-
-    # shields.io static badge: /badge/<label>-<message>-<color>
-    # label = "level", message = junior/middle/senior
-    url = f"https://img.shields.io/badge/level-{key}-{color}"
-    return f"![{level}]({url})"
+    emoji = LEVEL_EMOJI.get(key, DEFAULT_LEVEL_EMOJI)
+    return f"{emoji} {key}"
 
 
 def render_markdown(certs: list[dict]) -> str:
@@ -148,11 +143,11 @@ def render_markdown(certs: list[dict]) -> str:
         competency = c.get("competency") or "—"
         source = c.get("source") or DEFAULT_SOURCE_NAME
         section = c.get("section") or "—"
-        level_badge = render_level_badge(c.get("level"))
+        level = render_level(c.get("level"))
         file_link = f"[PDF](./certificates/files/{c['file']})" if c.get("file") else "—"
 
         lines.append(
-            f"| {competency} | {source} | {section} | {level_badge} | {file_link} |"
+            f"| {competency} | {source} | {section} | {level} | {file_link} |"
         )
 
     lines += ["", END_MARKER]
