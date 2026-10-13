@@ -1,1 +1,52 @@
 
+name: Update certificates
+
+on:
+  push:
+    paths:
+      - "certificates/files/*.pdf"
+      - "certificates/parse_certs.py"
+      - ".github/workflows/update-certs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pymupdf
+
+      - name: Debug — показать файлы
+        run: |
+          pwd
+          ls -la
+          ls -la certificates || true
+          ls -la certificates/files || true
+
+      - name: Parse certificates
+        run: python certificates/parse_certs.py
+
+      - name: Commit changes
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md certificates/certificates.json
+          if git diff --cached --quiet; then
+            echo "Нет изменений"
+          else
+            git commit -m "Auto-update certificates"
+            git push
+          fi
