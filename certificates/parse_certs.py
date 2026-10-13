@@ -31,7 +31,7 @@ DEFAULT_SOURCE_NAME = "National IT Competence Assessment System"
 # Map Russian level names from the PDF to English labels
 LEVEL_MAP = {
     "базовый": "junior",
-    "продвинутый": "middle",
+    "средний": "middle",
     "экспертный": "senior",
 }
 
@@ -77,7 +77,7 @@ def parse_certificate(pdf_path: Path) -> dict:
     # Competency
     m = re.search(
         r"подтвердил\s+ИТ-компетенцию\s+(.+?)\s+"
-        r"(?:Теория|Практика|базовый|продвинутый|экспертный)",
+        r"(?:Теория|Практика|базовый|средний|экспертный)",
         text,
         re.IGNORECASE,
     )
@@ -90,7 +90,7 @@ def parse_certificate(pdf_path: Path) -> dict:
         data["section"] = SECTION_MAP.get(m.group(1).lower(), m.group(1).capitalize())
 
     # Level: junior / middle / senior
-    m = re.search(r"\b(базовый|продвинутый|экспертный)\s+уровень", text, re.IGNORECASE)
+    m = re.search(r"\b(базовый|средний|экспертный)\s+уровень", text, re.IGNORECASE)
     if m:
         data["level"] = LEVEL_MAP.get(m.group(1).lower(), m.group(1).lower())
 
