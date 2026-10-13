@@ -16,7 +16,7 @@ try:
 except ImportError:
     sys.exit("Установите PyMuPDF: pip install pymupdf")
 
-ROOT = Path(__file__).resolve().parent.parent   # корень репозитория
+ROOT = Path(__file__).resolve().parent.parent
 CERT_DIR = ROOT / "certificates" / "files"
 CERTS_JSON = ROOT / "certificates" / "certificates.json"
 README = ROOT / "README.md"
@@ -24,6 +24,9 @@ README = ROOT / "README.md"
 START_MARKER = "<!-- CERTS_START -->"
 END_MARKER = "<!-- CERTS_END -->"
 PDF_GLOB = "*Сертификат*.pdf"
+
+# Источник по умолчанию (можно переопределить в certificates.json вручную)
+DEFAULT_SOURCE_NAME = "Национальная система оценки ИТ-компетенций"
 
 
 def extract_text(pdf_path: Path) -> str:
@@ -38,13 +41,14 @@ def parse_certificate(pdf_path: Path) -> dict:
 
     data = {
         "file": pdf_path.name,
-        "issuer": "Национальная система оценки ИТ-компетенций",
+        "issuer": DEFAULT_SOURCE_NAME,
         "name": None,
         "competency": None,
         "section": None,
         "level": None,
         "valid_until": None,
         "valid_until_display": None,
+        "source": DEFAULT_SOURCE_NAME,
     }
 
     m = re.search(r"КОМПЕТЕНЦИЙ\s+(.+?)\s+подтвердил", text)
@@ -112,16 +116,20 @@ def render_markdown(certs: list[dict]) -> str:
     lines = [
         START_MARKER,
         "",
-        "| Компетенция | Раздел | Уровень | Действителен до | Файл |",
-        "|---|---|---|---|---|",
+        "| Компетенция | Источник | Раздел | Уровень | Действителен до | Файл |",
+        "|---|---|---|---|---|---|",
     ]
     for c in certs:
         competency = c.get("competency") or "—"
         section = c.get("section") or "—"
         level = c.get("level") or "—"
         valid = c.get("valid_until_display") or "—"
+        source = c.get("source") or c.get("issuer") or "—"
         file_link = f"[PDF](./certificates/files/{c['file']})" if c.get("file") else "—"
-        lines.append(f"| {competency} | {section} | {level} | {valid} | {file_link} |")
+
+        lines.append(
+            f"| {competency} | {source} | {section} | {level} | {valid} | {file_link} |"
+        )
 
     lines += ["", END_MARKER]
     return "\n".join(lines)
@@ -163,6 +171,10 @@ def main() -> int:
     changed = update_readme(block)
     print("README обновлён." if changed else "README без изменений.")
     return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
 
 
 if __name__ == "__main__":
