@@ -107,6 +107,12 @@ I specialize in low-level and server-side development, building automations, and
 ### 🏆 Certificates
 
 <!-- CERTS_START -->
+
+| Компетенция | Раздел | Уровень | Действителен до | Файл |
+|---|---|---|---|---|
+| ООП | Теория | базовый уровень | 14.01.2027 | [PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| Git | Теория | базовый уровень | 14.01.2027 | [PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf) |
+
 <!-- CERTS_END -->
 
 <p align="center">
