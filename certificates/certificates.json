@@ -1,5 +1,13 @@
 [
   {
+    "file": "API_Сертификат_ИТ_компетенций_форма_1.pdf",
+    "name": null,
+    "competency": "API",
+    "section": "Theory",
+    "level": "junior",
+    "source": "National IT Competence Assessment System"
+  },
+  {
     "file": "Git_Сертификат_ИТ_компетенций_форма_1.pdf",
     "name": null,
     "competency": "Git",
