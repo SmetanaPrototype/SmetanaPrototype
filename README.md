@@ -1,3 +1,11 @@
+<p align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=header&width=100%"
+    width="100%"
+    alt="header wave"
+  />
+</p>
+
 <h1 align="center">Hi, I'm Vladimir Smetana 👋</h1>
 <h3 align="center">C++ / Python Developer & Systems Engineer</h3>
 
