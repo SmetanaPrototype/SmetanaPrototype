@@ -121,7 +121,7 @@ I specialize in low-level and server-side development, building automations, and
 </td>
 <td width="60%" valign="top">
 
-<img src="./certificates/radar.png?v=83cb53d7" width="100%">
+<img src="./certificates/radar_83cb53d7.png" width="100%">
 
 </td>
 </tr>
