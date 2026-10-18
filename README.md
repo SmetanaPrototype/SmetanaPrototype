@@ -115,9 +115,6 @@ I specialize in low-level and server-side development, building automations, and
 | &nbsp; | &nbsp; | &nbsp; |
 | &nbsp; | &nbsp; | &nbsp; |
 | &nbsp; | &nbsp; | &nbsp; |
-| &nbsp; | &nbsp; | &nbsp; |
-| &nbsp; | &nbsp; | &nbsp; |
-| &nbsp; | &nbsp; | &nbsp; |
 
 </td>
 <td width="60%" valign="top">
