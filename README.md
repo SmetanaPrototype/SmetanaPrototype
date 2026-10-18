@@ -111,22 +111,51 @@ I specialize in low-level and server-side development, building automations, and
 
 <!-- HHCERTS_START -->
 
-<table width="100%">
+<table style="width: 100%; border: none;">
 <tr>
-<td width="50%" valign="middle">
+<td width="50%" valign="middle" style="border: none; padding-right: 20px;">
 
-| Competency | Level | PDF |
-| :--- | :--- | :--- |
-| <b>API</b><br><br> | 🟡 Junior<br><br> | [📄 PDF](./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf)<br><br> |
-| <b>C++</b><br><br> | 🟡 Junior<br><br> | [📄 PDF](./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf)<br><br> |
-| <b>Git</b><br><br> | 🟢 Middle<br><br> | [📄 PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf)<br><br> |
-| <b>Linux</b><br><br> | 🟢 Middle<br><br> | [📄 PDF](./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf)<br><br> |
-| <b>ООП</b><br><br> | 🟡 Junior<br><br> | [📄 PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf)<br><br> |
+<table style="width: 100%;">
+<thead>
+<tr>
+<th align="left">Competency</th>
+<th align="left">Level</th>
+<th align="left">PDF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" style="padding: 16px 10px;"><b>API</b></td>
+<td align="left" style="padding: 16px 10px;">🟡 Junior</td>
+<td align="left" style="padding: 16px 10px;"><a href="./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td>
+</tr>
+<tr>
+<td align="left" style="padding: 16px 10px;"><b>C++</b></td>
+<td align="left" style="padding: 16px 10px;">🟡 Junior</td>
+<td align="left" style="padding: 16px 10px;"><a href="./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td>
+</tr>
+<tr>
+<td align="left" style="padding: 16px 10px;"><b>Git</b></td>
+<td align="left" style="padding: 16px 10px;">🟢 Middle</td>
+<td align="left" style="padding: 16px 10px;"><a href="./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td>
+</tr>
+<tr>
+<td align="left" style="padding: 16px 10px;"><b>Linux</b></td>
+<td align="left" style="padding: 16px 10px;">🟢 Middle</td>
+<td align="left" style="padding: 16px 10px;"><a href="./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td>
+</tr>
+<tr>
+<td align="left" style="padding: 16px 10px;"><b>ООП</b></td>
+<td align="left" style="padding: 16px 10px;">🟡 Junior</td>
+<td align="left" style="padding: 16px 10px;"><a href="./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td>
+</tr>
+</tbody>
+</table>
 
 </td>
-<td width="50%" valign="middle">
+<td width="50%" valign="middle" align="center" style="border: none;">
 
-<img src="./certificates/radar.png?v=401f2a4b" width="100%">
+<img src="./certificates/radar.png?v=92eeda54" width="100%">
 
 </td>
 </tr>
