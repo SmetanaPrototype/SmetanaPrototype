@@ -111,43 +111,24 @@ I specialize in low-level and server-side development, building automations, and
 
 <!-- HHCERTS_START -->
 
-<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 30px;">
-<div style="flex: 1; min-width: 300px;">
-<div style="display: flex; font-weight: 600; color: #57606a; border-bottom: 2px solid #d0d7de; padding-bottom: 8px; margin-bottom: 8px; font-size: 14px;">
-  <div style="flex: 2;">Competency</div>
-  <div style="flex: 1;">Level</div>
-  <div style="flex: 1;">PDF</div>
-</div>
-<div style="display: flex; padding: 12px 0; border-bottom: 1px solid #d0d7de;">
-  <div style="flex: 2; font-weight: 600;">API</div>
-  <div style="flex: 1;">🟡 Junior</div>
-  <div style="flex: 1;"><a href="./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></div>
-</div>
-<div style="display: flex; padding: 12px 0; border-bottom: 1px solid #d0d7de;">
-  <div style="flex: 2; font-weight: 600;">C++</div>
-  <div style="flex: 1;">🟡 Junior</div>
-  <div style="flex: 1;"><a href="./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></div>
-</div>
-<div style="display: flex; padding: 12px 0; border-bottom: 1px solid #d0d7de;">
-  <div style="flex: 2; font-weight: 600;">Git</div>
-  <div style="flex: 1;">🟢 Middle</div>
-  <div style="flex: 1;"><a href="./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></div>
-</div>
-<div style="display: flex; padding: 12px 0; border-bottom: 1px solid #d0d7de;">
-  <div style="flex: 2; font-weight: 600;">Linux</div>
-  <div style="flex: 1;">🟢 Middle</div>
-  <div style="flex: 1;"><a href="./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></div>
-</div>
-<div style="display: flex; padding: 12px 0; border-bottom: 1px solid #d0d7de;">
-  <div style="flex: 2; font-weight: 600;">ООП</div>
-  <div style="flex: 1;">🟡 Junior</div>
-  <div style="flex: 1;"><a href="./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></div>
-</div>
-</div>
-<div style="flex: 1; min-width: 300px; text-align: center;">
-  <img src="./certificates/radar.png?v=db8d4081" alt="Competency Radar" style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />
-</div>
-</div>
+<table border="0" cellspacing="0" cellpadding="10" style="border: none; background-color: transparent; width: 100%; border-collapse: collapse;">
+  <tr>
+    <td width="50%" valign="middle" style="border: none; padding-right: 20px;">
+
+| Competency | Level | PDF |
+| :--- | :--- | :--- |
+| **API** | 🟡 Junior | [📄 PDF](./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| **C++** | 🟡 Junior | [📄 PDF](./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| **Git** | 🟢 Middle | [📄 PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| **Linux** | 🟢 Middle | [📄 PDF](./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| **ООП** | 🟡 Junior | [📄 PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
+
+    </td>
+    <td width="50%" valign="middle" align="center" style="border: none;">
+      <img src="./certificates/radar.png?v=75699fe5" alt="Competency Radar" style="max-width: 100%; height: auto; max-width: 400px;" />
+    </td>
+  </tr>
+</table>
 
 <!-- HHCERTS_END -->
 
