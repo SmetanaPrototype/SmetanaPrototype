@@ -4,7 +4,8 @@
     "name": null,
     "competency": "API",
     "section": "Theory",
-    "level": "junior",
+    "level": "Junior",
+    "score": 1,
     "source": "National IT Competence Assessment System"
   },
   {
@@ -12,7 +13,8 @@
     "name": null,
     "competency": "C++",
     "section": "Theory",
-    "level": "junior",
+    "level": "Junior",
+    "score": 1,
     "source": "National IT Competence Assessment System"
   },
   {
@@ -20,7 +22,8 @@
     "name": null,
     "competency": "Git",
     "section": "Theory",
-    "level": "middle",
+    "level": "Middle",
+    "score": 2,
     "source": "National IT Competence Assessment System"
   },
   {
@@ -28,7 +31,8 @@
     "name": null,
     "competency": "Linux",
     "section": "Theory",
-    "level": "middle",
+    "level": "Middle",
+    "score": 2,
     "source": "National IT Competence Assessment System"
   },
   {
@@ -36,7 +40,8 @@
     "name": null,
     "competency": "ООП",
     "section": "Theory",
-    "level": "junior",
+    "level": "Junior",
+    "score": 1,
     "source": "National IT Competence Assessment System"
   }
 ]
