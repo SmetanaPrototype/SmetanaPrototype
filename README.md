@@ -111,28 +111,28 @@ I specialize in low-level and server-side development, building automations, and
 
 <!-- HHCERTS_START -->
 
-<table style="border: none; width: 100%; table-layout: fixed;">
+<table style="border: none; background-color: transparent; width: 100%; border-collapse: collapse; table-layout: fixed;">
   <tr>
-    <td valign="top" width="50%" style="border: none; padding-right: 20px;">
-      <table style="border: none; width: 100%; height: 100%; border-collapse: collapse;">
+    <td width="50%" valign="middle" style="border: none; padding-right: 20px;">
+      <table style="border: none; background-color: transparent; width: 100%; border-collapse: collapse;">
         <thead>
           <tr>
-            <th align="left" style="border: none; padding: 12px 0; color: #8b949e; font-size: 14px; border-bottom: 2px solid rgba(139, 148, 158, 0.2);">Competency</th>
-            <th align="left" style="border: none; padding: 12px 0; color: #8b949e; font-size: 14px; border-bottom: 2px solid rgba(139, 148, 158, 0.2);">Level</th>
-            <th align="center" style="border: none; padding: 12px 0; color: #8b949e; font-size: 14px; border-bottom: 2px solid rgba(139, 148, 158, 0.2);">PDF</th>
+            <th align="left" style="border: none; border-bottom: 2px solid rgba(139, 148, 158, 0.3); padding: 10px 0; color: #8b949e; font-size: 14px;">Competency</th>
+            <th align="left" style="border: none; border-bottom: 2px solid rgba(139, 148, 158, 0.3); padding: 10px 0; color: #8b949e; font-size: 14px;">Level</th>
+            <th align="center" style="border: none; border-bottom: 2px solid rgba(139, 148, 158, 0.3); padding: 10px 0; color: #8b949e; font-size: 14px;">PDF</th>
           </tr>
         </thead>
-        <tbody style="height: 100%;">
-          <tr><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><b>API</b></td><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);">🟡 Junior</td><td align="center" style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><a href="./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf" style="text-decoration: none; white-space: nowrap;">📄 PDF</a></td></tr>
-          <tr><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><b>C++</b></td><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);">🟡 Junior</td><td align="center" style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><a href="./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf" style="text-decoration: none; white-space: nowrap;">📄 PDF</a></td></tr>
-          <tr><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><b>Git</b></td><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);">🟢 Middle</td><td align="center" style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><a href="./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf" style="text-decoration: none; white-space: nowrap;">📄 PDF</a></td></tr>
-          <tr><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><b>Linux</b></td><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);">🟢 Middle</td><td align="center" style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><a href="./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf" style="text-decoration: none; white-space: nowrap;">📄 PDF</a></td></tr>
-          <tr><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><b>ООП</b></td><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);">🟡 Junior</td><td align="center" style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><a href="./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf" style="text-decoration: none; white-space: nowrap;">📄 PDF</a></td></tr>
+        <tbody>
+          <tr><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;"><b>API</b></td><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;">🟡 Junior</td><td align="center" style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;"><a href="./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf" style="text-decoration: none; white-space: nowrap;">📄 PDF</a></td></tr>
+          <tr><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;"><b>C++</b></td><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;">🟡 Junior</td><td align="center" style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;"><a href="./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf" style="text-decoration: none; white-space: nowrap;">📄 PDF</a></td></tr>
+          <tr><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;"><b>Git</b></td><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;">🟢 Middle</td><td align="center" style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;"><a href="./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf" style="text-decoration: none; white-space: nowrap;">📄 PDF</a></td></tr>
+          <tr><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;"><b>Linux</b></td><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;">🟢 Middle</td><td align="center" style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;"><a href="./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf" style="text-decoration: none; white-space: nowrap;">📄 PDF</a></td></tr>
+          <tr><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;"><b>ООП</b></td><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;">🟡 Junior</td><td align="center" style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;"><a href="./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf" style="text-decoration: none; white-space: nowrap;">📄 PDF</a></td></tr>
         </tbody>
       </table>
     </td>
-    <td valign="top" width="50%" style="border: none; text-align: center;">
-      <img src="./certificates/radar.png?v=1d907dee" alt="Competency Radar" style="width: 100%; max-width: 450px; height: auto; display: inline-block;" />
+    <td width="50%" valign="middle" align="center" style="border: none;">
+      <img src="./certificates/radar.png?v=1e7e75a3" alt="Competency Radar" style="width: 100%; max-width: 400px; height: auto;" />
     </td>
   </tr>
 </table>
