@@ -96,7 +96,7 @@ I specialize in low-level and server-side development, building automations, and
 </tr>
 </table>
 
-### 🏆 National IT Competence Assessment System
+### 🇷🇺 National IT Competence Assessment System
 
 <!-- HHCERTS_START -->
 
