@@ -100,35 +100,7 @@ I specialize in low-level and server-side development, building automations, and
 
 <!-- HHCERTS_START -->
 
-<table width="100%">
-<tr>
-<td width="40%" valign="top">
-
-| Competency | Level | PDF |
-| :--- | :--- | :--- |
-| **API** | 🟡 Junior | [📄 PDF](./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| **C++** | 🟡 Junior | [📄 PDF](./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| **Git** | 🟢 Middle | [📄 PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| **Linux** | 🟢 Middle | [📄 PDF](./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| **ООП** | 🟡 Junior | [📄 PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| &nbsp; | &nbsp; | &nbsp; |
-| &nbsp; | &nbsp; | &nbsp; |
-| &nbsp; | &nbsp; | &nbsp; |
-| &nbsp; | &nbsp; | &nbsp; |
-| &nbsp; | &nbsp; | &nbsp; |
-| &nbsp; | &nbsp; | &nbsp; |
-| &nbsp; | &nbsp; | &nbsp; |
-
-</td>
-<td width="60%" valign="top">
-
-<img src="./certificates/radar.png?v=401f2a4b" width="100%">
-
-</td>
-</tr>
-</table>
-
-<!-- HHCERTS_END --
+<!-- HHCERTS_END -->
 
 ### 🎓 Education
 
@@ -144,9 +116,3 @@ I specialize in low-level and server-side development, building automations, and
     alt="footer wave"
   />
 </p>
-
-<!-- HHCERTS_START -->
-
-<!-- HHCERTS_END -->
-
-
