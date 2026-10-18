@@ -183,7 +183,7 @@ def render_level(level: str | None) -> str:
     return f"{emoji} {level}"
 
 
-def wrap_long_text(text: str, max_len: int = 15) -> str:
+def wrap_long_text(text: str, max_len: int = 14) -> str:
     """
     Принудительно разбивает длинный текст на строки с помощью <br>,
     чтобы он не расширял колонку таблицы.
@@ -196,7 +196,6 @@ def wrap_long_text(text: str, max_len: int = 15) -> str:
     current_len = 0
     
     for word in words:
-        # Если добавление слова превышает лимит, начинаем новую строку
         if current_len + len(word) > max_len and current_line:
             lines.append(" ".join(current_line))
             current_line = [word]
@@ -224,23 +223,31 @@ def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     lines.append('| Competency | Level | PDF |')
     lines.append('| :--- | :--- | :--- |')
     
+    # Начинаем с 2 строк (заголовок и разделитель)
+    physical_rows_used = 2
+    
     if not certs:
         lines.append('| _No certificates yet._ | | |')
+        physical_rows_used += 1
     else:
         for c in certs:
             competency = c.get("competency") or "—"
-            # Разбиваем длинное название на строки
             competency_wrapped = wrap_long_text(competency, max_len=14)
             
             level = render_level(c.get("level"))
             file_link = f'[📄 PDF](./certificates/files/{c["file"]})' if c.get("file") else "—"
             
             lines.append(f'| **{competency_wrapped}** | {level} | {file_link} |')
+            
+            # Считаем реальные строки: 1 базовая + количество переносов <br>
+            physical_rows_used += 1 + competency_wrapped.count("<br>")
     
-    target_rows = 12  
-    if len(certs) < target_rows:
-        empty_rows = target_rows - len(certs)
-        for _ in range(empty_rows):
+    # Идеальная высота таблицы (13 визуальных строк)
+    target_visual_rows = 13
+    
+    if physical_rows_used < target_visual_rows:
+        empty_rows_needed = target_visual_rows - physical_rows_used
+        for _ in range(empty_rows_needed):
             lines.append('| &nbsp; | &nbsp; | &nbsp; |')
             
     lines.append('')
