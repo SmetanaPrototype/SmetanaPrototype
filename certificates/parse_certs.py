@@ -112,7 +112,6 @@ def collect_certificates() -> list[dict]:
     certs.sort(key=lambda c: (c.get("competency") or "").lower())
     return certs
 
-
 def generate_radar_chart(certs: list[dict]) -> bool:
     """Generates a 360-degree radar chart based on highest competency levels."""
     if not certs:
@@ -129,7 +128,6 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     labels = list(competencies.keys())
     stats = list(competencies.values())
 
-    # Number of variables
     num_vars = len(labels)
     if num_vars < 3:
         print("[!] Need at least 3 unique competencies for a radar chart. Skipping.")
@@ -137,39 +135,43 @@ def generate_radar_chart(certs: list[dict]) -> bool:
 
     # Compute angles for each axis
     angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
-    
-    # The plot needs to be a circle, so we repeat the first value at the end
     stats += stats[:1]
     angles += angles[:1]
 
-    # Initialize the plot
+    # --- NEW: Dynamic Scaling ---
+    # Find the highest score among all certificates
+    max_score = max(stats) if stats else 1
+    # Add a little padding above the highest score (e.g., if max is 2, scale goes to 2.5)
+    y_limit = max_score + 0.5 
+    
+    # Generate tick positions based on the highest score
+    ticks = list(range(1, int(max_score) + 1))
+    tick_labels = ["Junior", "Middle", "Senior"][:len(ticks)]
+    # -----------------------------
+
     fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
     
-    # Draw the polygon
     ax.fill(angles, stats, color='#005bff', alpha=0.25)
     ax.plot(angles, stats, color='#005bff', linewidth=2, marker='o')
 
-    # Set labels for each point
+    # Set labels for each point (added pad to fix "API" cutoff)
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(labels, fontsize=12, fontweight='bold')
+    ax.set_xticklabels(labels, fontsize=12, fontweight='bold', pad=15)
 
-    # Y-axis (Radius) configurations
-    ax.set_ylim(0, 3.5)
-    ax.set_yticks([1, 2, 3])
-    ax.set_yticklabels(["Junior", "Middle", "Senior"], color="grey", size=10)
-    ax.set_rlabel_position(30) # Push the Y-axis labels to the right
+    # Y-axis (Radius) configurations with dynamic limits
+    ax.set_ylim(0, y_limit)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels(tick_labels, color="grey", size=10)
+    ax.set_rlabel_position(30)
 
-    # Aesthetics
-    plt.title("Competency Radar", size=16, fontweight='bold', pad=20)
+    plt.title("Competency Radar", size=16, fontweight='bold', pad=30)
     plt.grid(color='grey', linestyle='--', linewidth=0.5, alpha=0.7)
 
-    # Save
     RADAR_IMG.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(RADAR_IMG, bbox_inches='tight', dpi=150, transparent=True)
     plt.close()
     
     return True
-
 
 def render_level(level: str | None) -> str:
     if not level:
