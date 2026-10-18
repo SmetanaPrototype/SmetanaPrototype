@@ -112,7 +112,7 @@ I specialize in low-level and server-side development, building automations, and
 <!-- CERTS_START -->
 
 ### 🕸 Competency Radar
-![Competency Radar](./certificates/radar.png)
+![Competency Radar](./certificates/radar.png?v=6494e21f)
 
 ### 📜 Certificates List
 
