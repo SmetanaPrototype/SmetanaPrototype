@@ -145,21 +145,18 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     tick_labels = ["Junior", "Middle", "Senior"][:len(ticks)]
 
     # Modern styling setup
-    fig, ax = plt.subplots(figsize=(7, 7), subplot_kw=dict(polar=True))
+    fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
     
     # Make backgrounds transparent
     fig.patch.set_alpha(0)
     ax.patch.set_alpha(0)
     
-    # Sleek modern colors
-    line_color = '#3b82f6' # Tailwind Blue 500
+    line_color = '#3b82f6'
     fill_color = '#3b82f6'
 
     # Draw the polygon
     ax.plot(angles, stats, color=line_color, linewidth=2, zorder=3)
     ax.fill(angles, stats, color=fill_color, alpha=0.15, zorder=2)
-    
-    # Add modern data points (dots on vertices)
     ax.scatter(angles[:-1], stats[:-1], color=line_color, s=40, zorder=4)
 
     # Remove the outer black circle border
@@ -170,26 +167,24 @@ def generate_radar_chart(certs: list[dict]) -> bool:
 
     # Set labels for each point
     ax.set_xticks(angles[:-1])
-    # Use a neutral gray (#8b949e) that is readable on both light and dark GitHub themes
-    ax.set_xticklabels(labels, fontsize=12, color='#8b949e', fontweight='bold')
+    ax.set_xticklabels(labels, fontsize=11, color='#8b949e', fontweight='bold')
     ax.tick_params(axis='x', pad=15)
 
     # Y-axis (Radius) configurations
     ax.set_ylim(0, y_limit)
     ax.set_yticks(ticks)
     ax.set_yticklabels(tick_labels, color='#8b949e', size=9)
-    ax.set_rlabel_position(45) # Move label to avoid overlapping with data points
+    ax.set_rlabel_position(45)
 
-    # Save
+    # Save with minimal padding (pad_inches)
     RADAR_IMG.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(RADAR_IMG, bbox_inches='tight', dpi=150, transparent=True)
+    plt.savefig(RADAR_IMG, bbox_inches='tight', dpi=150, transparent=True, pad_inches=0.1)
     plt.close()
     
     return True
 
 
 def get_file_hash(path: Path) -> str:
-    """Returns a short hash of the image file to bust GitHub cache."""
     if not path.exists():
         return "0"
     return hashlib.md5(path.read_bytes()).hexdigest()[:8]
@@ -206,45 +201,46 @@ def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     """Generates the unified 50/50 HTML layout block with clean CSS."""
     lines = [HHCERTS_START, ""]
     
+    # table-layout: fixed ensures strict 50/50 split. 
+    # valign="middle" centers content vertically to prevent huge empty gaps.
     lines += [
-        '<table style="border: none; width: 100%; table-layout: fixed;">',
+        '<table style="border: none; background-color: transparent; width: 100%; border-collapse: collapse; table-layout: fixed;">',
         '  <tr>',
-        '    <td valign="top" width="50%" style="border: none; padding-right: 20px;">',
-        '      <table style="border: none; width: 100%; height: 100%; border-collapse: collapse;">',
+        '    <td width="50%" valign="middle" style="border: none; padding-right: 20px;">',
+        '      <table style="border: none; background-color: transparent; width: 100%; border-collapse: collapse;">',
         '        <thead>',
         '          <tr>',
-        '            <th align="left" style="border: none; padding: 12px 0; color: #8b949e; font-size: 14px; border-bottom: 2px solid rgba(139, 148, 158, 0.2);">Competency</th>',
-        '            <th align="left" style="border: none; padding: 12px 0; color: #8b949e; font-size: 14px; border-bottom: 2px solid rgba(139, 148, 158, 0.2);">Level</th>',
-        '            <th align="center" style="border: none; padding: 12px 0; color: #8b949e; font-size: 14px; border-bottom: 2px solid rgba(139, 148, 158, 0.2);">PDF</th>',
+        '            <th align="left" style="border: none; border-bottom: 2px solid rgba(139, 148, 158, 0.3); padding: 10px 0; color: #8b949e; font-size: 14px;">Competency</th>',
+        '            <th align="left" style="border: none; border-bottom: 2px solid rgba(139, 148, 158, 0.3); padding: 10px 0; color: #8b949e; font-size: 14px;">Level</th>',
+        '            <th align="center" style="border: none; border-bottom: 2px solid rgba(139, 148, 158, 0.3); padding: 10px 0; color: #8b949e; font-size: 14px;">PDF</th>',
         '          </tr>',
         '        </thead>',
-        '        <tbody style="height: 100%;">'
+        '        <tbody>'
     ]
     
     if not certs:
-        lines.append('          <tr><td colspan="3" style="padding: 16px 0; text-align: center; color: #8b949e;">_No certificates yet._</td></tr>')
+        lines.append('          <tr><td colspan="3" style="border: none; padding: 16px 0; text-align: center; color: #8b949e;">_No certificates yet._</td></tr>')
     else:
         for c in certs:
             competency = c.get("competency") or "—"
             level = render_level(c.get("level"))
-            # Clean, modern link with icon
             file_link = f'<a href="./certificates/files/{c["file"]}" style="text-decoration: none; white-space: nowrap;">📄 PDF</a>' if c.get("file") else "—"
             
-            # Increased padding to make table taller to match radar height
-            lines.append(f'          <tr><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><b>{competency}</b></td><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);">{level}</td><td align="center" style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);">{file_link}</td></tr>')
+            # Added padding: 14px 0 to increase row height and visually match the radar
+            lines.append(f'          <tr><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;"><b>{competency}</b></td><td style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;">{level}</td><td align="center" style="border: none; border-bottom: 1px solid rgba(139, 148, 158, 0.2); padding: 14px 0;">{file_link}</td></tr>')
             
     lines += [
         '        </tbody>',
         '      </table>',
         '    </td>',
-        '    <td valign="top" width="50%" style="border: none; text-align: center;">'
+        '    <td width="50%" valign="middle" align="center" style="border: none;">'
     ]
     
     if has_radar:
-        # Added max-width and centered to prevent the radar from stretching too wide
-        lines.append(f'      <img src="./certificates/radar.png?v={img_hash}" alt="Competency Radar" style="width: 100%; max-width: 450px; height: auto; display: inline-block;" />')
+        # max-width: 400px prevents the radar from becoming gigantic on wide screens
+        lines.append(f'      <img src="./certificates/radar.png?v={img_hash}" alt="Competency Radar" style="width: 100%; max-width: 400px; height: auto;" />')
     else:
-        lines.append('      <p style="color: #8b949e; margin-top: 20px;">_Radar chart requires at least 3 competencies._</p>')
+        lines.append('      <p style="color: #8b949e;">_Radar chart requires at least 3 competencies._</p>')
         
     lines += [
         '    </td>',
