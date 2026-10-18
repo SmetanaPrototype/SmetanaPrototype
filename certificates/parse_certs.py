@@ -143,26 +143,28 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     ticks = list(range(1, int(max_score) + 1))
     tick_labels = ["Junior", "Middle", "Senior"][:len(ticks)]
 
-    # Modern GitHub-native design
+    # GitHub Primer Design System Colors
+    text_color = '#24292f'
+    line_color = '#0969da'
+    grid_color = '#d0d7de'
+
     fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
     fig.patch.set_alpha(0)
     ax.patch.set_alpha(0)
 
-    line_color = '#0969da' # GitHub Blue
-    text_color = '#24292f' # GitHub Main Text
-    grid_color = '#d0d7de' # GitHub Border Color
-
-    # Draw lines, fill, and crisp dots
-    ax.plot(angles, stats, color=line_color, linewidth=2.5, zorder=3)
+    # Plot polygon
+    ax.plot(angles, stats, color=line_color, linewidth=2, zorder=3)
     ax.fill(angles, stats, color=line_color, alpha=0.15, zorder=2)
-    ax.scatter(angles[:-1], stats[:-1], color=line_color, s=60, zorder=4, edgecolors='white', linewidth=2)
+    
+    # Crisp modern dots with white outline
+    ax.scatter(angles[:-1], stats[:-1], color=line_color, s=60, zorder=4, edgecolors='white', linewidth=1.5)
 
+    # Clean aesthetics
     ax.spines['polar'].set_visible(False)
-    # Subtle dashed grid
-    ax.grid(color=grid_color, linestyle='--', linewidth=1, alpha=0.9)
+    ax.grid(color=grid_color, linestyle='--', linewidth=1, alpha=0.8)
 
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(labels, fontsize=13, color=text_color, fontweight='600')
+    ax.set_xticklabels(labels, fontsize=12, color=text_color, fontweight='600')
     ax.tick_params(axis='x', pad=15)
 
     ax.set_ylim(0, y_limit)
@@ -171,7 +173,7 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     ax.set_rlabel_position(45)
 
     RADAR_IMG.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(RADAR_IMG, bbox_inches='tight', dpi=200, transparent=True, pad_inches=0)
+    plt.savefig(RADAR_IMG, bbox_inches='tight', dpi=200, transparent=True, pad_inches=0.1)
     plt.close()
     
     return True
@@ -192,59 +194,49 @@ def render_level(level: str | None) -> str:
 
 def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     """
-    Generates the 50/50 layout using PURE HTML.
-    Mixing Markdown and HTML breaks GitHub's parser, so we avoid Markdown entirely.
+    Uses a barebones HTML table with NO indentation to ensure GitHub's
+    Markdown parser flawlessly renders the inner Markdown table.
     """
-    html = [HHCERTS_START, ""]
-    
-    # Outer table - transparent, borderless
-    html.append('<table border="0" cellspacing="0" cellpadding="0" style="border: none; background-color: transparent; width: 100%; border-collapse: collapse;">')
-    html.append('  <tr style="border: none; background-color: transparent;">')
-    
-    # --- LEFT COLUMN ---
-    html.append('    <td width="50%" valign="middle" style="border: none; padding-right: 20px;">')
-    html.append('      <table border="0" cellspacing="0" cellpadding="0" style="border: none; background-color: transparent; width: 100%; border-collapse: collapse;">')
-    
-    # Header Row
-    html.append('        <tr style="border: none; background-color: transparent;">')
-    html.append('          <th align="left" style="border: none; border-bottom: 2px solid #d0d7de; padding: 8px 16px; font-weight: 600; color: #24292f;">Competency</th>')
-    html.append('          <th align="left" style="border: none; border-bottom: 2px solid #d0d7de; padding: 8px 16px; font-weight: 600; color: #24292f;">Level</th>')
-    html.append('          <th align="left" style="border: none; border-bottom: 2px solid #d0d7de; padding: 8px 16px; font-weight: 600; color: #24292f;">PDF</th>')
-    html.append('        </tr>')
+    lines = [HHCERTS_START, ""]
 
+    # Barebones HTML wrapper for 50/50 layout (NO indentation)
+    lines.append('<table>')
+    lines.append('<tr>')
+    lines.append('<td width="50%" valign="top">')
+    lines.append('')
+    
+    # Inner Native Markdown Table
+    lines.append('| Competency | Level | PDF |')
+    lines.append('| :--- | :--- | :--- |')
+    
     if not certs:
-        html.append('        <tr style="border: none;"><td colspan="3" align="center" style="border: none; padding: 16px; color: #57606a;">_No certificates yet._</td></tr>')
+        lines.append('| _No certificates yet._ | | |')
     else:
         for c in certs:
             competency = c.get("competency") or "—"
             level = render_level(c.get("level"))
-            file_link = f'<a href="./certificates/files/{c["file"]}">📄 PDF</a>' if c.get("file") else "—"
+            file_link = f'[📄 PDF](./certificates/files/{c["file"]})' if c.get("file") else "—"
+            lines.append(f'| **{competency}** | {level} | {file_link} |')
             
-            html.append('        <tr style="border: none; background-color: transparent;">')
-            html.append(f'          <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 12px 16px;"><b>{competency}</b></td>')
-            html.append(f'          <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 12px 16px;">{level}</td>')
-            html.append(f'          <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 12px 16px;">{file_link}</td>')
-            html.append('        </tr>')
-            
-    html.append('      </table>')
-    html.append('    </td>')
+    lines.append('')
+    lines.append('</td>')
+    lines.append('<td width="50%" valign="top">')
+    lines.append('')
     
-    # --- RIGHT COLUMN ---
-    html.append('    <td width="50%" valign="middle" align="center" style="border: none;">')
-    
+    # Image
     if has_radar:
-        # max-width 400px prevents it from becoming gigantic on wide screens
-        html.append(f'      <img src="./certificates/radar.png?v={img_hash}" alt="Competency Radar" style="max-width: 100%; height: auto; max-width: 400px;" />')
+        lines.append(f'<img src="./certificates/radar.png?v={img_hash}" width="100%" alt="Competency Radar">')
     else:
-        html.append('      <p style="color: #57606a;">_Radar chart requires at least 3 competencies._</p>')
+        lines.append('_Radar chart requires at least 3 competencies._')
         
-    html.append('    </td>')
-    html.append('  </tr>')
-    html.append('</table>')
-    html.append("")
-    html.append(HHCERTS_END)
+    lines.append('')
+    lines.append('</td>')
+    lines.append('</tr>')
+    lines.append('</table>')
+    lines.append("")
+    lines.append(HHCERTS_END)
     
-    return "\n".join(html)
+    return "\n".join(lines)
 
 
 def update_readme(block: str) -> bool:
