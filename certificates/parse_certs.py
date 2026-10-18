@@ -144,38 +144,44 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     ticks = list(range(1, int(max_score) + 1))
     tick_labels = ["Junior", "Middle", "Senior"][:len(ticks)]
 
-    # Increase figure size for better resolution
-    fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
+    # Setup figure with high DPI for crispness
+    fig, ax = plt.subplots(figsize=(7, 7), subplot_kw=dict(polar=True))
     
+    # Transparent background
     fig.patch.set_alpha(0)
     ax.patch.set_alpha(0)
+
+    # GitHub UI Colors: Blue accent, dark text, subtle borders
+    line_color = '#2f81f7' 
+    fill_color = '#2f81f7'
+    text_color = '#24292f'
+    grid_color = '#d0d7de'
+
+    # Draw modern radar polygon
+    ax.plot(angles, stats, color=line_color, linewidth=2.5, zorder=3)
+    ax.fill(angles, stats, color=fill_color, alpha=0.15, zorder=2)
     
-    # Bolder colors
-    line_color = '#2563eb' # Tailwind Blue 600
-    fill_color = '#3b82f6'
+    # Add crisp data points with white borders
+    ax.scatter(angles[:-1], stats[:-1], color=line_color, s=60, zorder=4, edgecolors='white', linewidth=1.5)
 
-    # Thicker lines and markers
-    ax.plot(angles, stats, color=line_color, linewidth=3, zorder=3)
-    ax.fill(angles, stats, color=fill_color, alpha=0.25, zorder=2)
-    ax.scatter(angles[:-1], stats[:-1], color=line_color, s=60, zorder=4)
-
+    # Hide outer black circle
     ax.spines['polar'].set_visible(False)
 
-    # Solid, slightly darker grid for better visibility
-    ax.grid(color='#cbd5e1', linestyle='-', linewidth=1, alpha=0.7)
+    # Subtle dashed grid
+    ax.grid(color=grid_color, linestyle='--', linewidth=1, alpha=0.8)
 
-    # Larger, bolder labels
+    # Typography
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(labels, fontsize=14, color='#475569', fontweight='bold')
-    ax.tick_params(axis='x', pad=20)
+    ax.set_xticklabels(labels, fontsize=13, color=text_color, fontweight='bold')
+    ax.tick_params(axis='x', pad=15)
 
-    # Y-axis (Radius) configurations
+    # Y-axis configuration
     ax.set_ylim(0, y_limit)
     ax.set_yticks(ticks)
-    ax.set_yticklabels(tick_labels, color='#94a3b8', size=11)
+    ax.set_yticklabels(tick_labels, color='#57606a', size=10)
     ax.set_rlabel_position(45)
 
-    # Save with tight layout and no extra padding
+    # Save with tight layout
     RADAR_IMG.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(RADAR_IMG, bbox_inches='tight', dpi=200, transparent=True, pad_inches=0)
     plt.close()
@@ -197,49 +203,40 @@ def render_level(level: str | None) -> str:
 
 
 def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
-    """Generates the unified 50/50 HTML layout block with aggressive CSS overrides."""
+    """Generates the unified 50/50 layout using HTML table + Markdown table."""
     lines = [HHCERTS_START, ""]
     
-    # !important on all table styles to override GitHub's aggressive markdown CSS
+    # Outer HTML table strictly for side-by-side layout.
+    # cellpadding creates space so elements don't touch.
     lines += [
-        '<table style="border: none !important; background-color: transparent !important; width: 100%; border-collapse: collapse !important; table-layout: fixed;">',
-        '  <tr style="border: none !important; background-color: transparent !important;">',
-        '    <td width="50%" valign="top" style="border: none !important; background-color: transparent !important; padding-right: 30px;">',
-        '      <table style="border: none !important; background-color: transparent !important; width: 100%; border-collapse: collapse !important;">',
-        '        <thead>',
-        '          <tr style="border: none !important; background-color: transparent !important;">',
-        '            <th align="left" style="border: none !important; border-bottom: 2px solid #d1d5db !important; padding: 12px 0; color: #6b7280; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; background-color: transparent !important;">Competency</th>',
-        '            <th align="left" style="border: none !important; border-bottom: 2px solid #d1d5db !important; padding: 12px 0; color: #6b7280; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; background-color: transparent !important;">Level</th>',
-        '            <th align="center" style="border: none !important; border-bottom: 2px solid #d1d5db !important; padding: 12px 0; color: #6b7280; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; background-color: transparent !important;">PDF</th>',
-        '          </tr>',
-        '        </thead>',
-        '        <tbody>'
+        '<table border="0" cellspacing="0" cellpadding="10">',
+        '  <tr>',
+        '    <td valign="middle" width="50%">',
+        '      ', # Blank line required for Markdown parser
+        '| Competency | Level | PDF |',
+        '| :--- | :--- | :--- |',
     ]
     
     if not certs:
-        lines.append('          <tr style="border: none !important; background-color: transparent !important;"><td colspan="3" style="border: none !important; padding: 20px 0; text-align: center; color: #6b7280; background-color: transparent !important;">_No certificates yet._</td></tr>')
+        lines.append('| _No certificates yet._ | | |')
     else:
         for c in certs:
             competency = c.get("competency") or "—"
             level = render_level(c.get("level"))
-            # Link without underline
-            file_link = f'<a href="./certificates/files/{c["file"]}" style="text-decoration: none; font-weight: bold; white-space: nowrap;">📄 PDF</a>' if c.get("file") else "—"
-            
-            # padding: 22px 0 to increase row height and balance with radar
-            lines.append(f'          <tr style="border: none !important; background-color: transparent !important;"><td style="border: none !important; border-bottom: 1px solid #e5e7eb !important; padding: 22px 0; background-color: transparent !important;"><b>{competency}</b></td><td style="border: none !important; border-bottom: 1px solid #e5e7eb !important; padding: 22px 0; background-color: transparent !important;">{level}</td><td align="center" style="border: none !important; border-bottom: 1px solid #e5e7eb !important; padding: 22px 0; background-color: transparent !important;">{file_link}</td></tr>')
+            file_link = f'[📄 PDF](./certificates/files/{c["file"]})' if c.get("file") else "—"
+            lines.append(f'| **{competency}** | {level} | {file_link} |')
             
     lines += [
-        '        </tbody>',
-        '      </table>',
+        '      ', # Blank line required for Markdown parser
         '    </td>',
-        '    <td width="50%" valign="top" align="center" style="border: none !important; background-color: transparent !important;">'
+        '    <td valign="middle" width="50%" align="center">',
     ]
     
     if has_radar:
-        # width="100%" with max-width to prevent giant charts on wide screens
-        lines.append(f'      <img src="./certificates/radar.png?v={img_hash}" alt="Competency Radar" style="width: 100%; max-width: 450px; height: auto; display: block; margin: 0 auto;" />')
+        # width="100%" ensures it scales nicely inside the table cell
+        lines.append(f'      <img src="./certificates/radar.png?v={img_hash}" alt="Competency Radar" width="100%" style="max-width: 400px;">')
     else:
-        lines.append('      <p style="color: #6b7280; margin-top: 20px;">_Radar chart requires at least 3 competencies._</p>')
+        lines.append('      <p style="color: #57606a;">_Radar chart requires at least 3 competencies._</p>')
         
     lines += [
         '    </td>',
