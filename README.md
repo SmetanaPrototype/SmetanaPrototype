@@ -111,51 +111,43 @@ I specialize in low-level and server-side development, building automations, and
 
 <!-- HHCERTS_START -->
 
-<table style="border: none; width: 100%; border-collapse: collapse;">
-  <tr style="border: none; background-color: transparent;">
-    <td width="50%" valign="middle" style="border: none; padding: 0 20px 0 0;">
-      <table style="border: none; width: 100%; border-collapse: collapse;">
-        <thead>
-          <tr style="border: none;">
-            <th align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 8px 16px; font-weight: 600;">Competency</th>
-            <th align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 8px 16px; font-weight: 600;">Level</th>
-            <th align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 8px 16px; font-weight: 600;">PDF</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border: none; background-color: transparent;">
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;"><b>API</b></td>
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;">🟡 Junior</td>
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;"><a href="./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td>
-          </tr>
-          <tr style="border: none; background-color: transparent;">
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;"><b>C++</b></td>
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;">🟡 Junior</td>
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;"><a href="./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td>
-          </tr>
-          <tr style="border: none; background-color: transparent;">
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;"><b>Git</b></td>
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;">🟢 Middle</td>
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;"><a href="./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td>
-          </tr>
-          <tr style="border: none; background-color: transparent;">
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;"><b>Linux</b></td>
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;">🟢 Middle</td>
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;"><a href="./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td>
-          </tr>
-          <tr style="border: none; background-color: transparent;">
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;"><b>ООП</b></td>
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;">🟡 Junior</td>
-            <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 10px 16px;"><a href="./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </td>
-    <td width="50%" valign="middle" align="center" style="border: none; padding: 0;">
-      <img src="./certificates/radar.png?v=17752d84" alt="Competency Radar" style="max-width: 100%; height: auto;" />
-    </td>
-  </tr>
-</table>
+<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 30px;">
+<div style="flex: 1; min-width: 300px;">
+<div style="display: flex; font-weight: 600; color: #57606a; border-bottom: 2px solid #d0d7de; padding-bottom: 8px; margin-bottom: 8px; font-size: 14px;">
+  <div style="flex: 2;">Competency</div>
+  <div style="flex: 1;">Level</div>
+  <div style="flex: 1;">PDF</div>
+</div>
+<div style="display: flex; padding: 12px 0; border-bottom: 1px solid #d0d7de;">
+  <div style="flex: 2; font-weight: 600;">API</div>
+  <div style="flex: 1;">🟡 Junior</div>
+  <div style="flex: 1;"><a href="./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></div>
+</div>
+<div style="display: flex; padding: 12px 0; border-bottom: 1px solid #d0d7de;">
+  <div style="flex: 2; font-weight: 600;">C++</div>
+  <div style="flex: 1;">🟡 Junior</div>
+  <div style="flex: 1;"><a href="./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></div>
+</div>
+<div style="display: flex; padding: 12px 0; border-bottom: 1px solid #d0d7de;">
+  <div style="flex: 2; font-weight: 600;">Git</div>
+  <div style="flex: 1;">🟢 Middle</div>
+  <div style="flex: 1;"><a href="./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></div>
+</div>
+<div style="display: flex; padding: 12px 0; border-bottom: 1px solid #d0d7de;">
+  <div style="flex: 2; font-weight: 600;">Linux</div>
+  <div style="flex: 1;">🟢 Middle</div>
+  <div style="flex: 1;"><a href="./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></div>
+</div>
+<div style="display: flex; padding: 12px 0; border-bottom: 1px solid #d0d7de;">
+  <div style="flex: 2; font-weight: 600;">ООП</div>
+  <div style="flex: 1;">🟡 Junior</div>
+  <div style="flex: 1;"><a href="./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></div>
+</div>
+</div>
+<div style="flex: 1; min-width: 300px; text-align: center;">
+  <img src="./certificates/radar.png?v=db8d4081" alt="Competency Radar" style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />
+</div>
+</div>
 
 <!-- HHCERTS_END -->
 
