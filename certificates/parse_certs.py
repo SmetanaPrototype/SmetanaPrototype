@@ -204,7 +204,7 @@ def render_markdown(certs: list[dict], has_radar: bool, img_hash: str = "") -> s
         competency = c.get("competency") or "—"
         source = c.get("source") or DEFAULT_SOURCE_NAME
         level = render_level(c.get("level"))
-        file_link = f"[📄 Open PDF](./certificates/files/{c['file']})" if c.get("file") else "—"
+        file_link = f"[📄PDF](./certificates/files/{c['file']})" if c.get("file") else "—"
 
         lines.append(f"| {competency} | {source} | {level} | {file_link} |")
 
