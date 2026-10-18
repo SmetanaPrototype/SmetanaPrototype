@@ -143,12 +143,11 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     ticks = list(range(1, int(max_score) + 1))
     tick_labels = ["Junior", "Middle", "Senior"][:len(ticks)]
 
-    # Увеличенный размер для большой картинки
+    # Оригинальный стиль радара
     fig, ax = plt.subplots(figsize=(12, 12), subplot_kw=dict(polar=True))
     fig.patch.set_alpha(0)
     ax.patch.set_alpha(0)
 
-    # Оригинальный стиль радара
     line_color = '#005bff'
 
     ax.plot(angles, stats, color=line_color, linewidth=2, marker='o')
@@ -186,19 +185,16 @@ def render_level(level: str | None) -> str:
 
 
 def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
-    """
-    Раскладка 50/50.
-    Использует <br> для растягивания строк таблицы, чтобы она соответствовала высоте картинки.
-    """
     lines = [HHCERTS_START, ""]
 
+    # Раскладка 40% на 60%
     lines.append('<table width="100%">')
     lines.append('<tr>')
-    # Левая колонка - 50%
-    lines.append('<td width="50%" valign="middle">')
+    
+    # Левая колонка - 40%, выровнена по верхнему краю
+    lines.append('<td width="40%" valign="top">')
     lines.append('')
     
-    # Таблица с добавленными <br> для высоты
     lines.append('| Competency | Level | PDF |')
     lines.append('| :--- | :--- | :--- |')
     
@@ -209,18 +205,24 @@ def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
             competency = c.get("competency") or "—"
             level = render_level(c.get("level"))
             file_link = f'[📄 PDF](./certificates/files/{c["file"]})' if c.get("file") else "—"
-            # Добавляем <br><br> в каждую ячейку для увеличения высоты строки
-            lines.append(f'| <b>{competency}</b><br><br> | {level}<br><br> | {file_link}<br><br> |')
+            lines.append(f'| **{competency}** | {level} | {file_link} |')
+    
+    # Автозаполнение пустых строк
+    # 12 строк — оптимальная высота, чтобы таблица сравнялась с радаром
+    target_rows = 12  
+    if len(certs) < target_rows:
+        empty_rows = target_rows - len(certs)
+        for _ in range(empty_rows):
+            lines.append('| &nbsp; | &nbsp; | &nbsp; |')
             
     lines.append('')
     lines.append('</td>')
     
-    # Правая колонка - 50%
-    lines.append('<td width="50%" valign="middle">')
+    # Правая колонка - 60% (Радар)
+    lines.append('<td width="60%" valign="top">')
     lines.append('')
     
     if has_radar:
-        # Ширина 100% заполнит всю правую колонку
         lines.append(f'<img src="./certificates/radar.png?v={img_hash}" width="100%">')
     else:
         lines.append('_Radar chart requires at least 3 competencies._')
