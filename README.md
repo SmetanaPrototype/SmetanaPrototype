@@ -137,3 +137,29 @@ I specialize in low-level and server-side development, building automations, and
 ![Competency Radar](./certificates/radar.png?v=6494e21f)
 
 <!-- RADAR_END -->
+
+<!-- HHCERTS_START -->
+
+<table>
+  <tr>
+    <td valign="top" width="50%">
+      <table>
+        <thead>
+          <tr><th>Competency</th><th>Level</th><th>PDF</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>API</td><td>🟡 Junior</td><td><a href="./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td></tr>
+          <tr><td>C++</td><td>🟡 Junior</td><td><a href="./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td></tr>
+          <tr><td>Git</td><td>🟢 Middle</td><td><a href="./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td></tr>
+          <tr><td>Linux</td><td>🟢 Middle</td><td><a href="./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td></tr>
+          <tr><td>ООП</td><td>🟡 Junior</td><td><a href="./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf">📄 PDF</a></td></tr>
+        </tbody>
+      </table>
+    </td>
+    <td valign="top" width="50%">
+      <img src="./certificates/radar.png?v=6494e21f" alt="Competency Radar" width="100%" />
+    </td>
+  </tr>
+</table>
+
+<!-- HHCERTS_END -->
