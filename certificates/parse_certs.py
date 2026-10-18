@@ -143,23 +143,24 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     ticks = list(range(1, int(max_score) + 1))
     tick_labels = ["Junior", "Middle", "Senior"][:len(ticks)]
 
-    fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
+    # Увеличенный размер для большой картинки
+    fig, ax = plt.subplots(figsize=(12, 12), subplot_kw=dict(polar=True))
     fig.patch.set_alpha(0)
     ax.patch.set_alpha(0)
 
-    # Возвращаем тот самый оригинальный стиль радара
+    # Оригинальный стиль радара
     line_color = '#005bff'
 
     ax.plot(angles, stats, color=line_color, linewidth=2, marker='o')
     ax.fill(angles, stats, color=line_color, alpha=0.25)
 
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(labels, fontsize=12, fontweight='bold')
+    ax.set_xticklabels(labels, fontsize=14, fontweight='bold')
     ax.tick_params(axis='x', pad=15)
 
     ax.set_ylim(0, y_limit)
     ax.set_yticks(ticks)
-    ax.set_yticklabels(tick_labels, color="grey", size=10)
+    ax.set_yticklabels(tick_labels, color="grey", size=12)
     ax.set_rlabel_position(30)
 
     ax.grid(color='grey', linestyle='--', linewidth=0.5, alpha=0.7)
@@ -186,19 +187,18 @@ def render_level(level: str | None) -> str:
 
 def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     """
-    Генерирует раскладку 2:1. 
-    Внутри используется исключительно чистый Markdown. 
-    HTML (таблица) нужен только для того, чтобы поставить элементы рядом.
+    Раскладка 50/50.
+    Использует <br> для растягивания строк таблицы, чтобы она соответствовала высоте картинки.
     """
     lines = [HHCERTS_START, ""]
 
-    # Каркас для колонок (2/3 слева, 1/3 справа)
-    lines.append('<table>')
+    lines.append('<table width="100%">')
     lines.append('<tr>')
-    lines.append('<td width="66%" valign="middle">')
+    # Левая колонка - 50%
+    lines.append('<td width="50%" valign="middle">')
     lines.append('')
     
-    # Чистая Markdown-таблица (она автоматически растянется на всю ячейку)
+    # Таблица с добавленными <br> для высоты
     lines.append('| Competency | Level | PDF |')
     lines.append('| :--- | :--- | :--- |')
     
@@ -209,16 +209,18 @@ def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
             competency = c.get("competency") or "—"
             level = render_level(c.get("level"))
             file_link = f'[📄 PDF](./certificates/files/{c["file"]})' if c.get("file") else "—"
-            lines.append(f'| **{competency}** | {level} | {file_link} |')
+            # Добавляем <br><br> в каждую ячейку для увеличения высоты строки
+            lines.append(f'| <b>{competency}</b><br><br> | {level}<br><br> | {file_link}<br><br> |')
             
     lines.append('')
     lines.append('</td>')
     
-    # Правая колонка с радаром
-    lines.append('<td width="33%" valign="middle">')
+    # Правая колонка - 50%
+    lines.append('<td width="50%" valign="middle">')
     lines.append('')
     
     if has_radar:
+        # Ширина 100% заполнит всю правую колонку
         lines.append(f'<img src="./certificates/radar.png?v={img_hash}" width="100%">')
     else:
         lines.append('_Radar chart requires at least 3 competencies._')
