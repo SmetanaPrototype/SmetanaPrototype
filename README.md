@@ -96,17 +96,6 @@ I specialize in low-level and server-side development, building automations, and
 </tr>
 </table>
 
----
-
-### 🎓 Education
-
-<p align="left">
-  <strong>Master of Technical Sciences</strong> — Rocket Complexes & Cosmonautics<br>
-  <strong>PhD Student (Aspirant)</strong> — Space Flight Dynamics
-</p>
-
----
-
 ### 🏆 National IT Competence Assessment System
 
 <!-- HHCERTS_START -->
@@ -139,7 +128,14 @@ I specialize in low-level and server-side development, building automations, and
 </tr>
 </table>
 
-<!-- HHCERTS_END -->
+<!-- HHCERTS_END --
+
+### 🎓 Education
+
+<p align="left">
+  <strong>Master of Technical Sciences</strong> — Rocket Complexes & Cosmonautics<br>
+  <strong>PhD Student (Aspirant)</strong> — Space Flight Dynamics
+</p>
 
 <p align="center">
   <img
