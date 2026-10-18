@@ -113,7 +113,7 @@ I specialize in low-level and server-side development, building automations, and
 
 <table>
 <tr>
-<td width="50%" valign="top">
+<td width="66%" valign="middle">
 
 | Competency | Level | PDF |
 | :--- | :--- | :--- |
@@ -124,9 +124,9 @@ I specialize in low-level and server-side development, building automations, and
 | **ООП** | 🟡 Junior | [📄 PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
 
 </td>
-<td width="50%" valign="top">
+<td width="33%" valign="middle">
 
-<img src="./certificates/radar.png?v=1fd2204b" width="100%" alt="Competency Radar">
+<img src="./certificates/radar.png?v=0101552c" width="100%">
 
 </td>
 </tr>
