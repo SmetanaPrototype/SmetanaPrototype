@@ -6,6 +6,7 @@ PDFs are stored in certificates/files/.
 Generates a Radar Chart (360 diagram) and updates README.md.
 """
 
+
 import json
 import re
 import sys
