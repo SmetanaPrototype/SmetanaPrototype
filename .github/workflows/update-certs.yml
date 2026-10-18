@@ -28,13 +28,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install pymupdf matplotlib numpy
 
-      - name: Debug — show files
-        run: |
-          pwd
-          ls -la
-          ls -la certificates || true
-          ls -la certificates/files || true
-
       - name: Parse certificates
         run: python certificates/parse_certs.py
 
@@ -42,8 +35,9 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Add radar.png to tracking so it gets included in the commit
-          git add README.md certificates/certificates.json certificates/radar.png
+          # Добавляем README, а также ВСЮ папку certificates (включая новые radar_*.png и удаление старых)
+          git add README.md certificates/
+          
           if git diff --cached --quiet; then
             echo "No changes"
           else
