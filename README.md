@@ -110,8 +110,10 @@ I specialize in low-level and server-side development, building automations, and
 | **C++** | 🟡 Junior | [📄 PDF](./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf) |
 | **Git** | 🟢 Middle | [📄 PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf) |
 | **Linux** | 🟢 Middle | [📄 PDF](./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| **Алгоритмы и<br>структуры<br>данных** | 🟡 Junior | [📄 PDF](./certificates/files/algorithms_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| **ООП** | 🟡 Junior | [📄 PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| **Algorithms** | 🟡 Junior | [📄 PDF](./certificates/files/algorithms_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| **OOP** | 🟡 Junior | [📄 PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| &nbsp; | &nbsp; | &nbsp; |
+| &nbsp; | &nbsp; | &nbsp; |
 | &nbsp; | &nbsp; | &nbsp; |
 | &nbsp; | &nbsp; | &nbsp; |
 | &nbsp; | &nbsp; | &nbsp; |
@@ -119,7 +121,7 @@ I specialize in low-level and server-side development, building automations, and
 </td>
 <td width="60%" valign="top">
 
-<img src="./certificates/radar.png?v=2476158d" width="100%">
+<img src="./certificates/radar.png?v=83cb53d7" width="100%">
 
 </td>
 </tr>
