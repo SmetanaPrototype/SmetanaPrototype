@@ -25,8 +25,12 @@ CERTS_JSON = ROOT / "certificates" / "certificates.json"
 RADAR_IMG = ROOT / "certificates" / "radar.png"
 README = ROOT / "README.md"
 
-START_MARKER = "<!-- CERTS_START -->"
-END_MARKER = "<!-- CERTS_END -->"
+# Separate markers for Radar and Certificates list
+RADAR_START = "<!-- RADAR_START -->"
+RADAR_END = "<!-- RADAR_END -->"
+CERTS_START = "<!-- CERTS_START -->"
+CERTS_END = "<!-- CERTS_END -->"
+
 PDF_GLOB = "*Сертификат*.pdf"
 
 DEFAULT_SOURCE_NAME = "National IT Competence Assessment System"
@@ -180,50 +184,59 @@ def render_level(level: str | None) -> str:
     return f"{emoji} {level}"
 
 
-def render_markdown(certs: list[dict], has_radar: bool, img_hash: str = "") -> str:
-    lines = [START_MARKER, ""]
-    
+def render_radar_block(has_radar: bool, img_hash: str) -> str:
+    """Generates the markdown block for the radar chart."""
+    lines = [RADAR_START, ""]
     if has_radar:
         lines.append("### 🕸 Competency Radar")
-        # Append the image hash as a query parameter to prevent caching issues
         lines.append(f"![Competency Radar](./certificates/radar.png?v={img_hash})")
-        lines.append("")
-
-    if not certs:
-        lines.append("_No certificates yet._")
-        lines.append(END_MARKER)
-        return "\n".join(lines)
-
-    lines += [
-        "### 📜 Certificates List",
-        "",
-        "| Competency | Source | Level | Certificate |",
-        "|---|---|---|---|",
-    ]
-    for c in certs:
-        competency = c.get("competency") or "—"
-        source = c.get("source") or DEFAULT_SOURCE_NAME
-        level = render_level(c.get("level"))
-        file_link = f"[📄PDF](./certificates/files/{c['file']})" if c.get("file") else "—"
-
-        lines.append(f"| {competency} | {source} | {level} | {file_link} |")
-
-    lines += ["", END_MARKER]
+    else:
+        lines.append("_Radar chart requires at least 3 competencies._")
+    lines += ["", RADAR_END]
     return "\n".join(lines)
 
 
-def update_readme(block: str) -> bool:
+def render_certs_block(certs: list[dict]) -> str:
+    """Generates the markdown block for the certificates table."""
+    lines = [CERTS_START, ""]
+    if not certs:
+        lines.append("_No certificates yet._")
+    else:
+        lines += [
+            "### 📜 Certificates List",
+            "",
+            "| Competency | Source | Level | Certificate |",
+            "|---|---|---|---|",
+        ]
+        for c in certs:
+            competency = c.get("competency") or "—"
+            source = c.get("source") or DEFAULT_SOURCE_NAME
+            level = render_level(c.get("level"))
+            file_link = f"[📄 Open PDF](./certificates/files/{c['file']})" if c.get("file") else "—"
+            lines.append(f"| {competency} | {source} | {level} | {file_link} |")
+    lines += ["", CERTS_END]
+    return "\n".join(lines)
+
+
+def update_readme_block(content: str, start_marker: str, end_marker: str, new_block: str) -> str:
+    """Replaces text between start and end markers, or appends if not found."""
+    pattern = re.compile(re.escape(start_marker) + r".*?" + re.escape(end_marker), re.DOTALL)
+    if pattern.search(content):
+        return pattern.sub(new_block, content)
+    else:
+        return content.rstrip() + "\n\n" + new_block + "\n"
+
+
+def update_readme(radar_block: str, certs_block: str) -> bool:
     if not README.exists():
-        README.write_text(block + "\n", encoding="utf-8")
+        README.write_text(radar_block + "\n\n" + certs_block + "\n", encoding="utf-8")
         return True
 
     content = README.read_text(encoding="utf-8")
-    pattern = re.compile(re.escape(START_MARKER) + r".*?" + re.escape(END_MARKER), re.DOTALL)
-
-    if pattern.search(content):
-        new_content = pattern.sub(block, content)
-    else:
-        new_content = content.rstrip() + "\n\n" + block + "\n"
+    
+    # Update both blocks independently
+    new_content = update_readme_block(content, RADAR_START, RADAR_END, radar_block)
+    new_content = update_readme_block(new_content, CERTS_START, CERTS_END, certs_block)
 
     if new_content != content:
         README.write_text(new_content, encoding="utf-8")
@@ -242,11 +255,12 @@ def main() -> int:
     if has_radar:
         print("Radar chart generated.")
     
-    # Get the hash of the new image
     img_hash = get_file_hash(RADAR_IMG)
     
-    block = render_markdown(certs, has_radar, img_hash)
-    changed = update_readme(block)
+    radar_block = render_radar_block(has_radar, img_hash)
+    certs_block = render_certs_block(certs)
+    
+    changed = update_readme(radar_block, certs_block)
     print("README updated." if changed else "README unchanged.")
     return 0
 
