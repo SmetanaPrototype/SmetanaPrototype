@@ -111,22 +111,22 @@ I specialize in low-level and server-side development, building automations, and
 
 <!-- HHCERTS_START -->
 
-<table>
+<table width="100%">
 <tr>
-<td width="66%" valign="middle">
+<td width="50%" valign="middle">
 
 | Competency | Level | PDF |
 | :--- | :--- | :--- |
-| **API** | 🟡 Junior | [📄 PDF](./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| **C++** | 🟡 Junior | [📄 PDF](./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| **Git** | 🟢 Middle | [📄 PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| **Linux** | 🟢 Middle | [📄 PDF](./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| **ООП** | 🟡 Junior | [📄 PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| <b>API</b><br><br> | 🟡 Junior<br><br> | [📄 PDF](./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf)<br><br> |
+| <b>C++</b><br><br> | 🟡 Junior<br><br> | [📄 PDF](./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf)<br><br> |
+| <b>Git</b><br><br> | 🟢 Middle<br><br> | [📄 PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf)<br><br> |
+| <b>Linux</b><br><br> | 🟢 Middle<br><br> | [📄 PDF](./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf)<br><br> |
+| <b>ООП</b><br><br> | 🟡 Junior<br><br> | [📄 PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf)<br><br> |
 
 </td>
-<td width="33%" valign="middle">
+<td width="50%" valign="middle">
 
-<img src="./certificates/radar.png?v=0101552c" width="100%">
+<img src="./certificates/radar.png?v=401f2a4b" width="100%">
 
 </td>
 </tr>
