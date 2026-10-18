@@ -186,11 +186,11 @@ def render_level(level: str | None) -> str:
 def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     lines = [HHCERTS_START, ""]
 
-    # Раскладка 40% на 60%
-    lines.append('<table width="100%">')
+    # style="table-layout: fixed;" ЖЕСТКО фиксирует ширину колонок 40% и 60%
+    lines.append('<table width="100%" style="table-layout: fixed;">')
     lines.append('<tr>')
     
-    # Левая колонка - 40%, выровнена по верхнему краю
+    # Левая колонка - 40%
     lines.append('<td width="40%" valign="top">')
     lines.append('')
     
@@ -204,10 +204,9 @@ def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
             competency = c.get("competency") or "—"
             level = render_level(c.get("level"))
             file_link = f'[📄 PDF](./certificates/files/{c["file"]})' if c.get("file") else "—"
+            # Если слово слишком длинное, браузер перенесет его на новую строку
             lines.append(f'| **{competency}** | {level} | {file_link} |')
     
-    # Автозаполнение пустых строк
-    # 12 строк — оптимальная высота, чтобы таблица сравнялась с радаром
     target_rows = 12  
     if len(certs) < target_rows:
         empty_rows = target_rows - len(certs)
@@ -247,6 +246,7 @@ def update_readme(block: str) -> bool:
     if pattern.search(content):
         new_content = pattern.sub(block, content)
     else:
+        print("[!] WARNING: Could not find valid HHCERTS tags in README.md. Appending to the end.", file=sys.stderr)
         new_content = content.rstrip() + "\n\n" + block + "\n"
 
     if new_content != content:
