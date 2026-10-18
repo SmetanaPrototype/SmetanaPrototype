@@ -183,11 +183,38 @@ def render_level(level: str | None) -> str:
     return f"{emoji} {level}"
 
 
+def wrap_long_text(text: str, max_len: int = 15) -> str:
+    """
+    Принудительно разбивает длинный текст на строки с помощью <br>,
+    чтобы он не расширял колонку таблицы.
+    """
+    if not text:
+        return text
+    words = text.split()
+    lines = []
+    current_line = []
+    current_len = 0
+    
+    for word in words:
+        # Если добавление слова превышает лимит, начинаем новую строку
+        if current_len + len(word) > max_len and current_line:
+            lines.append(" ".join(current_line))
+            current_line = [word]
+            current_len = len(word)
+        else:
+            current_line.append(word)
+            current_len += len(word) + 1
+            
+    if current_line:
+        lines.append(" ".join(current_line))
+        
+    return "<br>".join(lines)
+
+
 def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     lines = [HHCERTS_START, ""]
 
-    # style="table-layout: fixed;" ЖЕСТКО фиксирует ширину колонок 40% и 60%
-    lines.append('<table width="100%" style="table-layout: fixed;">')
+    lines.append('<table width="100%">')
     lines.append('<tr>')
     
     # Левая колонка - 40%
@@ -202,10 +229,13 @@ def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     else:
         for c in certs:
             competency = c.get("competency") or "—"
+            # Разбиваем длинное название на строки
+            competency_wrapped = wrap_long_text(competency, max_len=14)
+            
             level = render_level(c.get("level"))
             file_link = f'[📄 PDF](./certificates/files/{c["file"]})' if c.get("file") else "—"
-            # Если слово слишком длинное, браузер перенесет его на новую строку
-            lines.append(f'| **{competency}** | {level} | {file_link} |')
+            
+            lines.append(f'| **{competency_wrapped}** | {level} | {file_link} |')
     
     target_rows = 12  
     if len(certs) < target_rows:
