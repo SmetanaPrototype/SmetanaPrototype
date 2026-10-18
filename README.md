@@ -138,3 +138,11 @@ I specialize in low-level and server-side development, building automations, and
 </table>
 
 <!-- HHCERTS_END -->
+
+<p align="center">
+  <img
+    src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer&width=100%"
+    width="100%"
+    alt="footer wave"
+  />
+</p>
