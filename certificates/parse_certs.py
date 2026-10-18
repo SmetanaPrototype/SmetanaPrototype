@@ -205,15 +205,14 @@ def render_certs_block(certs: list[dict]) -> str:
         lines += [
             "### 📜 Certificates List",
             "",
-            "| Competency | Source | Level | Certificate |",
-            "|---|---|---|---|",
+            "| Competency | Level | Certificate |",
+            "|---|---|---|",
         ]
         for c in certs:
             competency = c.get("competency") or "—"
-            source = c.get("source") or DEFAULT_SOURCE_NAME
             level = render_level(c.get("level"))
             file_link = f"[📄 Open PDF](./certificates/files/{c['file']})" if c.get("file") else "—"
-            lines.append(f"| {competency} | {source} | {level} | {file_link} |")
+            lines.append(f"| {competency} | {level} | {file_link} |")
     lines += ["", CERTS_END]
     return "\n".join(lines)
 
