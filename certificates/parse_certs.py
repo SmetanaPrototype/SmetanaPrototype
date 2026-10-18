@@ -144,23 +144,43 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     ticks = list(range(1, int(max_score) + 1))
     tick_labels = ["Junior", "Middle", "Senior"][:len(ticks)]
 
-    fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
+    # Modern styling setup
+    fig, ax = plt.subplots(figsize=(7, 7), subplot_kw=dict(polar=True))
     
-    ax.fill(angles, stats, color='#005bff', alpha=0.25)
-    ax.plot(angles, stats, color='#005bff', linewidth=2, marker='o')
+    # Make backgrounds transparent
+    fig.patch.set_alpha(0)
+    ax.patch.set_alpha(0)
+    
+    # Sleek modern colors
+    line_color = '#3b82f6' # Tailwind Blue 500
+    fill_color = '#3b82f6'
 
+    # Draw the polygon
+    ax.plot(angles, stats, color=line_color, linewidth=2, zorder=3)
+    ax.fill(angles, stats, color=fill_color, alpha=0.15, zorder=2)
+    
+    # Add modern data points (dots on vertices)
+    ax.scatter(angles[:-1], stats[:-1], color=line_color, s=40, zorder=4)
+
+    # Remove the outer black circle border
+    ax.spines['polar'].set_visible(False)
+
+    # Soft modern grid
+    ax.grid(color='#8b949e', linestyle='--', linewidth=0.5, alpha=0.3)
+
+    # Set labels for each point
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(labels, fontsize=12, fontweight='bold')
+    # Use a neutral gray (#8b949e) that is readable on both light and dark GitHub themes
+    ax.set_xticklabels(labels, fontsize=12, color='#8b949e', fontweight='bold')
     ax.tick_params(axis='x', pad=15)
 
+    # Y-axis (Radius) configurations
     ax.set_ylim(0, y_limit)
     ax.set_yticks(ticks)
-    ax.set_yticklabels(tick_labels, color="grey", size=10)
-    ax.set_rlabel_position(30)
+    ax.set_yticklabels(tick_labels, color='#8b949e', size=9)
+    ax.set_rlabel_position(45) # Move label to avoid overlapping with data points
 
-    plt.title("Competency Radar", size=16, fontweight='bold', pad=30)
-    plt.grid(color='grey', linestyle='--', linewidth=0.5, alpha=0.7)
-
+    # Save
     RADAR_IMG.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(RADAR_IMG, bbox_inches='tight', dpi=150, transparent=True)
     plt.close()
@@ -183,46 +203,53 @@ def render_level(level: str | None) -> str:
 
 
 def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
-    """Generates the unified 50/50 HTML layout block."""
+    """Generates the unified 50/50 HTML layout block with clean CSS."""
     lines = [HHCERTS_START, ""]
     
-    # HTML table for side-by-side layout
     lines += [
-        "<table>",
-        "  <tr>",
-        '    <td valign="top" width="50%">',
-        "      <table>",
-        "        <thead>",
-        "          <tr><th>Competency</th><th>Level</th><th>PDF</th></tr>",
-        "        </thead>",
-        "        <tbody>"
+        '<table style="border: none; width: 100%; table-layout: fixed;">',
+        '  <tr>',
+        '    <td valign="top" width="50%" style="border: none; padding-right: 20px;">',
+        '      <table style="border: none; width: 100%; height: 100%; border-collapse: collapse;">',
+        '        <thead>',
+        '          <tr>',
+        '            <th align="left" style="border: none; padding: 12px 0; color: #8b949e; font-size: 14px; border-bottom: 2px solid rgba(139, 148, 158, 0.2);">Competency</th>',
+        '            <th align="left" style="border: none; padding: 12px 0; color: #8b949e; font-size: 14px; border-bottom: 2px solid rgba(139, 148, 158, 0.2);">Level</th>',
+        '            <th align="center" style="border: none; padding: 12px 0; color: #8b949e; font-size: 14px; border-bottom: 2px solid rgba(139, 148, 158, 0.2);">PDF</th>',
+        '          </tr>',
+        '        </thead>',
+        '        <tbody style="height: 100%;">'
     ]
     
     if not certs:
-        lines.append('          <tr><td colspan="3">_No certificates yet._</td></tr>')
+        lines.append('          <tr><td colspan="3" style="padding: 16px 0; text-align: center; color: #8b949e;">_No certificates yet._</td></tr>')
     else:
         for c in certs:
             competency = c.get("competency") or "—"
             level = render_level(c.get("level"))
-            file_link = f'<a href="./certificates/files/{c["file"]}">📄 PDF</a>' if c.get("file") else "—"
-            lines.append(f"          <tr><td>{competency}</td><td>{level}</td><td>{file_link}</td></tr>")
+            # Clean, modern link with icon
+            file_link = f'<a href="./certificates/files/{c["file"]}" style="text-decoration: none; white-space: nowrap;">📄 PDF</a>' if c.get("file") else "—"
+            
+            # Increased padding to make table taller to match radar height
+            lines.append(f'          <tr><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);"><b>{competency}</b></td><td style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);">{level}</td><td align="center" style="border: none; padding: 16px 0; border-bottom: 1px solid rgba(139, 148, 158, 0.2);">{file_link}</td></tr>')
             
     lines += [
-        "        </tbody>",
-        "      </table>",
-        "    </td>",
-        '    <td valign="top" width="50%">'
+        '        </tbody>',
+        '      </table>',
+        '    </td>',
+        '    <td valign="top" width="50%" style="border: none; text-align: center;">'
     ]
     
     if has_radar:
-        lines.append(f'      <img src="./certificates/radar.png?v={img_hash}" alt="Competency Radar" width="100%" />')
+        # Added max-width and centered to prevent the radar from stretching too wide
+        lines.append(f'      <img src="./certificates/radar.png?v={img_hash}" alt="Competency Radar" style="width: 100%; max-width: 450px; height: auto; display: inline-block;" />')
     else:
-        lines.append("      _Radar chart requires at least 3 competencies._")
+        lines.append('      <p style="color: #8b949e; margin-top: 20px;">_Radar chart requires at least 3 competencies._</p>')
         
     lines += [
-        "    </td>",
-        "  </tr>",
-        "</table>",
+        '    </td>',
+        '  </tr>',
+        '</table>',
         "",
         HHCERTS_END
     ]
