@@ -50,6 +50,11 @@ SECTION_MAP = {
     "практика": "Practice",
 }
 
+COMPETENCY_MAP = {
+    "Алгоритмы и структуры данных": "Algorithms",
+    "ООП": "OOP",
+    "Машинное обучение": "MLearning"
+}
 
 def extract_text(pdf_path: Path) -> str:
     doc = fitz.open(pdf_path)
@@ -120,7 +125,10 @@ def generate_radar_chart(certs: list[dict]) -> bool:
 
     competencies = {}
     for c in certs:
-        comp = c.get("competency") or "Unknown"
+        raw_comp = c.get("competency") or "Unknown"
+        # Применяем перевод для радара
+        comp = COMPETENCY_MAP.get(raw_comp.strip(), raw_comp)
+        
         score = c.get("score", 0)
         if score > competencies.get(comp, 0):
             competencies[comp] = score
@@ -231,7 +239,10 @@ def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
         physical_rows_used += 1
     else:
         for c in certs:
-            competency = c.get("competency") or "—"
+            raw_competency = c.get("competency") or "—"
+            # Применяем перевод для таблицы
+            competency = COMPETENCY_MAP.get(raw_competency.strip(), raw_competency)
+            
             competency_wrapped = wrap_long_text(competency, max_len=14)
             
             level = render_level(c.get("level"))
