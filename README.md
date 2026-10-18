@@ -113,13 +113,13 @@ I specialize in low-level and server-side development, building automations, and
 
 ### 📜 Certificates List
 
-| Competency | Source | Level | Certificate |
-|---|---|---|---|
-| API | National IT Competence Assessment System | 🟡 Junior | [📄 Open PDF](./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| C++ | National IT Competence Assessment System | 🟡 Junior | [📄 Open PDF](./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| Git | National IT Competence Assessment System | 🟢 Middle | [📄 Open PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| Linux | National IT Competence Assessment System | 🟢 Middle | [📄 Open PDF](./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| ООП | National IT Competence Assessment System | 🟡 Junior | [📄 Open PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| Competency | Level | Certificate |
+|---|---|---|
+| API | 🟡 Junior | [📄 Open PDF](./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| C++ | 🟡 Junior | [📄 Open PDF](./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| Git | 🟢 Middle | [📄 Open PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| Linux | 🟢 Middle | [📄 Open PDF](./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf) |
+| ООП | 🟡 Junior | [📄 Open PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
 
 <!-- CERTS_END -->
 
