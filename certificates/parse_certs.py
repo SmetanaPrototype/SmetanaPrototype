@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 try:
-    import fitz  # PyMuPDF
+    import pymupdf as fitz  # Fixed deprecated import
     import matplotlib.pyplot as plt
     import numpy as np
 except ImportError:
@@ -35,6 +35,7 @@ LEVEL_MAP = {
     "базовый": {"label": "Junior", "value": 1},
     "средний": {"label": "Middle", "value": 2},
     "продвинутый": {"label": "Senior", "value": 3},
+    "экспертный": {"label": "Senior", "value": 3},  # Added for backwards compatibility
 }
 
 # Emoji for the Markdown table
@@ -72,9 +73,10 @@ def parse_certificate(pdf_path: Path) -> dict:
     m = re.search(r"КОМПЕТЕНЦИЙ\s+(.+?)\s+подтвердил", text)
     if m: data["name"] = m.group(1).strip()
 
+    # Updated regex to include both "продвинутый" and "экспертный"
     m = re.search(
         r"подтвердил\s+ИТ-компетенцию\s+(.+?)\s+"
-        r"(?:Теория|Практика|базовый|средний|экспертный)",
+        r"(?:Теория|Практика|базовый|средний|продвинутый|экспертный)",
         text, re.IGNORECASE,
     )
     if m: data["competency"] = m.group(1).strip()
@@ -82,7 +84,8 @@ def parse_certificate(pdf_path: Path) -> dict:
     m = re.search(r"\b(Теория|Практика)\b", text, re.IGNORECASE)
     if m: data["section"] = SECTION_MAP.get(m.group(1).lower(), m.group(1).capitalize())
 
-    m = re.search(r"\b(базовый|средний|экспертный)\s+уровень", text, re.IGNORECASE)
+    # Updated regex to include both "продвинутый" and "экспертный"
+    m = re.search(r"\b(базовый|средний|продвинутый|экспертный)\s+уровень", text, re.IGNORECASE)
     if m:
         level_info = LEVEL_MAP.get(m.group(1).lower())
         if level_info:
@@ -112,6 +115,7 @@ def collect_certificates() -> list[dict]:
     certs.sort(key=lambda c: (c.get("competency") or "").lower())
     return certs
 
+
 def generate_radar_chart(certs: list[dict]) -> bool:
     """Generates a 360-degree radar chart based on highest competency levels."""
     if not certs:
@@ -138,25 +142,23 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     stats += stats[:1]
     angles += angles[:1]
 
-    # --- NEW: Dynamic Scaling ---
-    # Find the highest score among all certificates
+    # Dynamic Scaling
     max_score = max(stats) if stats else 1
-    # Add a little padding above the highest score (e.g., if max is 2, scale goes to 2.5)
     y_limit = max_score + 0.5 
     
-    # Generate tick positions based on the highest score
     ticks = list(range(1, int(max_score) + 1))
     tick_labels = ["Junior", "Middle", "Senior"][:len(ticks)]
-    # -----------------------------
 
     fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
     
     ax.fill(angles, stats, color='#005bff', alpha=0.25)
     ax.plot(angles, stats, color='#005bff', linewidth=2, marker='o')
 
-    # Set labels for each point (added pad to fix "API" cutoff)
+    # Set labels for each point
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(labels, fontsize=12, fontweight='bold', pad=15)
+    ax.set_xticklabels(labels, fontsize=12, fontweight='bold')
+    # Fixed: use tick_params instead of passing 'pad' to set_xticklabels
+    ax.tick_params(axis='x', pad=15)
 
     # Y-axis (Radius) configurations with dynamic limits
     ax.set_ylim(0, y_limit)
@@ -172,6 +174,7 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     plt.close()
     
     return True
+
 
 def render_level(level: str | None) -> str:
     if not level:
