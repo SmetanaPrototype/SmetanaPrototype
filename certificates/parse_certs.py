@@ -152,9 +152,9 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     text_color = '#24292f' # GitHub Main Text
     grid_color = '#d0d7de' # GitHub Border Color
 
+    # Draw lines, fill, and crisp dots
     ax.plot(angles, stats, color=line_color, linewidth=2.5, zorder=3)
     ax.fill(angles, stats, color=line_color, alpha=0.15, zorder=2)
-    # Crisp white borders on points
     ax.scatter(angles[:-1], stats[:-1], color=line_color, s=60, zorder=4, edgecolors='white', linewidth=2)
 
     ax.spines['polar'].set_visible(False)
@@ -192,46 +192,59 @@ def render_level(level: str | None) -> str:
 
 def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     """
-    Generates the 50/50 layout.
-    CRITICAL: The Markdown table MUST NOT be indented, or GitHub parses it as a code block.
+    Generates the 50/50 layout using PURE HTML.
+    Mixing Markdown and HTML breaks GitHub's parser, so we avoid Markdown entirely.
     """
-    lines = [HHCERTS_START, ""]
+    html = [HHCERTS_START, ""]
     
-    # Outer table strictly for layout, hide its borders
-    lines.append('<table border="0" cellspacing="0" cellpadding="10" style="border: none; background-color: transparent; width: 100%; border-collapse: collapse;">')
-    lines.append('  <tr>')
-    lines.append('    <td width="50%" valign="middle" style="border: none; padding-right: 20px;">')
-    lines.append('') # Blank line required for Markdown parsing
+    # Outer table - transparent, borderless
+    html.append('<table border="0" cellspacing="0" cellpadding="0" style="border: none; background-color: transparent; width: 100%; border-collapse: collapse;">')
+    html.append('  <tr style="border: none; background-color: transparent;">')
     
-    # Inner Markdown Table (NO INDENTATION!)
-    lines.append('| Competency | Level | PDF |')
-    lines.append('| :--- | :--- | :--- |')
+    # --- LEFT COLUMN ---
+    html.append('    <td width="50%" valign="middle" style="border: none; padding-right: 20px;">')
+    html.append('      <table border="0" cellspacing="0" cellpadding="0" style="border: none; background-color: transparent; width: 100%; border-collapse: collapse;">')
     
+    # Header Row
+    html.append('        <tr style="border: none; background-color: transparent;">')
+    html.append('          <th align="left" style="border: none; border-bottom: 2px solid #d0d7de; padding: 8px 16px; font-weight: 600; color: #24292f;">Competency</th>')
+    html.append('          <th align="left" style="border: none; border-bottom: 2px solid #d0d7de; padding: 8px 16px; font-weight: 600; color: #24292f;">Level</th>')
+    html.append('          <th align="left" style="border: none; border-bottom: 2px solid #d0d7de; padding: 8px 16px; font-weight: 600; color: #24292f;">PDF</th>')
+    html.append('        </tr>')
+
     if not certs:
-        lines.append('| _No certificates yet._ | | |')
+        html.append('        <tr style="border: none;"><td colspan="3" align="center" style="border: none; padding: 16px; color: #57606a;">_No certificates yet._</td></tr>')
     else:
         for c in certs:
             competency = c.get("competency") or "—"
             level = render_level(c.get("level"))
-            file_link = f'[📄 PDF](./certificates/files/{c["file"]})' if c.get("file") else "—"
-            lines.append(f'| **{competency}** | {level} | {file_link} |')
+            file_link = f'<a href="./certificates/files/{c["file"]}">📄 PDF</a>' if c.get("file") else "—"
             
-    lines.append('') # Blank line required for Markdown parsing
-    lines.append('    </td>')
-    lines.append('    <td width="50%" valign="middle" align="center" style="border: none;">')
+            html.append('        <tr style="border: none; background-color: transparent;">')
+            html.append(f'          <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 12px 16px;"><b>{competency}</b></td>')
+            html.append(f'          <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 12px 16px;">{level}</td>')
+            html.append(f'          <td align="left" style="border: none; border-bottom: 1px solid #d0d7de; padding: 12px 16px;">{file_link}</td>')
+            html.append('        </tr>')
+            
+    html.append('      </table>')
+    html.append('    </td>')
+    
+    # --- RIGHT COLUMN ---
+    html.append('    <td width="50%" valign="middle" align="center" style="border: none;">')
     
     if has_radar:
-        lines.append(f'      <img src="./certificates/radar.png?v={img_hash}" alt="Competency Radar" style="max-width: 100%; height: auto; max-width: 400px;" />')
+        # max-width 400px prevents it from becoming gigantic on wide screens
+        html.append(f'      <img src="./certificates/radar.png?v={img_hash}" alt="Competency Radar" style="max-width: 100%; height: auto; max-width: 400px;" />')
     else:
-        lines.append('      <p style="color: #57606a;">_Radar chart requires at least 3 competencies._</p>')
+        html.append('      <p style="color: #57606a;">_Radar chart requires at least 3 competencies._</p>')
         
-    lines.append('    </td>')
-    lines.append('  </tr>')
-    lines.append('</table>')
-    lines.append("")
-    lines.append(HHCERTS_END)
+    html.append('    </td>')
+    html.append('  </tr>')
+    html.append('</table>')
+    html.append("")
+    html.append(HHCERTS_END)
     
-    return "\n".join(lines)
+    return "\n".join(html)
 
 
 def update_readme(block: str) -> bool:
