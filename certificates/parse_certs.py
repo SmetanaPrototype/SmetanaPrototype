@@ -143,12 +143,11 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     ticks = list(range(1, int(max_score) + 1))
     tick_labels = ["Junior", "Middle", "Senior"][:len(ticks)]
 
-    # Увеличенный размер для большой картинки
-    fig, ax = plt.subplots(figsize=(12, 12), subplot_kw=dict(polar=True))
+    # ТОТ САМЫЙ ИДЕАЛЬНЫЙ РАДАР
+    fig, ax = plt.subplots(figsize=(10, 10), subplot_kw=dict(polar=True))
     fig.patch.set_alpha(0)
     ax.patch.set_alpha(0)
 
-    # Оригинальный стиль радара
     line_color = '#005bff'
 
     ax.plot(angles, stats, color=line_color, linewidth=2, marker='o')
@@ -156,7 +155,7 @@ def generate_radar_chart(certs: list[dict]) -> bool:
 
     ax.set_xticks(angles[:-1])
     ax.set_xticklabels(labels, fontsize=14, fontweight='bold')
-    ax.tick_params(axis='x', pad=15)
+    ax.tick_params(axis='x', pad=20)
 
     ax.set_ylim(0, y_limit)
     ax.set_yticks(ticks)
@@ -187,40 +186,53 @@ def render_level(level: str | None) -> str:
 
 def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     """
-    Раскладка 50/50.
-    Использует <br> для растягивания строк таблицы, чтобы она соответствовала высоте картинки.
+    Раскладка 50/50 с принудительным растягиванием таблицы.
     """
     lines = [HHCERTS_START, ""]
 
-    lines.append('<table width="100%">')
+    lines.append('<table style="width: 100%; border: none;">')
     lines.append('<tr>')
-    # Левая колонка - 50%
-    lines.append('<td width="50%" valign="middle">')
+    
+    # Левая колонка (50%)
+    lines.append('<td width="50%" valign="middle" style="border: none; padding-right: 20px;">')
     lines.append('')
     
-    # Таблица с добавленными <br> для высоты
-    lines.append('| Competency | Level | PDF |')
-    lines.append('| :--- | :--- | :--- |')
+    # Таблица с обязательным style="width: 100%", иначе GitHub её сжимает
+    lines.append('<table style="width: 100%;">')
+    lines.append('<thead>')
+    lines.append('<tr>')
+    lines.append('<th align="left">Competency</th>')
+    lines.append('<th align="left">Level</th>')
+    lines.append('<th align="left">PDF</th>')
+    lines.append('</tr>')
+    lines.append('</thead>')
+    lines.append('<tbody>')
     
     if not certs:
-        lines.append('| _No certificates yet._ | | |')
+        lines.append('<tr><td colspan="3" align="center">_No certificates yet._</td></tr>')
     else:
         for c in certs:
             competency = c.get("competency") or "—"
             level = render_level(c.get("level"))
-            file_link = f'[📄 PDF](./certificates/files/{c["file"]})' if c.get("file") else "—"
-            # Добавляем <br><br> в каждую ячейку для увеличения высоты строки
-            lines.append(f'| <b>{competency}</b><br><br> | {level}<br><br> | {file_link}<br><br> |')
+            file_link = f'<a href="./certificates/files/{c["file"]}">📄 PDF</a>' if c.get("file") else "—"
             
+            # Добавляем padding, чтобы строки стали выше и заполнили пустоту по вертикали
+            lines.append('<tr>')
+            lines.append(f'<td align="left" style="padding: 16px 10px;"><b>{competency}</b></td>')
+            lines.append(f'<td align="left" style="padding: 16px 10px;">{level}</td>')
+            lines.append(f'<td align="left" style="padding: 16px 10px;">{file_link}</td>')
+            lines.append('</tr>')
+            
+    lines.append('</tbody>')
+    lines.append('</table>')
     lines.append('')
     lines.append('</td>')
     
-    # Правая колонка - 50%
-    lines.append('<td width="50%" valign="middle">')
+    # Правая колонка (50%)
+    lines.append('<td width="50%" valign="middle" align="center" style="border: none;">')
     lines.append('')
     
     if has_radar:
-        # Ширина 100% заполнит всю правую колонку
         lines.append(f'<img src="./certificates/radar.png?v={img_hash}" width="100%">')
     else:
         lines.append('_Radar chart requires at least 3 competencies._')
