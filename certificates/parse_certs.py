@@ -143,37 +143,29 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     ticks = list(range(1, int(max_score) + 1))
     tick_labels = ["Junior", "Middle", "Senior"][:len(ticks)]
 
-    # GitHub Primer Design System Colors
-    text_color = '#24292f'
-    line_color = '#0969da'
-    grid_color = '#d0d7de'
-
-    fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
+    fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
     fig.patch.set_alpha(0)
     ax.patch.set_alpha(0)
 
-    # Plot polygon
-    ax.plot(angles, stats, color=line_color, linewidth=2, zorder=3)
-    ax.fill(angles, stats, color=line_color, alpha=0.15, zorder=2)
-    
-    # Crisp modern dots with white outline
-    ax.scatter(angles[:-1], stats[:-1], color=line_color, s=60, zorder=4, edgecolors='white', linewidth=1.5)
+    # Возвращаем тот самый оригинальный стиль радара
+    line_color = '#005bff'
 
-    # Clean aesthetics
-    ax.spines['polar'].set_visible(False)
-    ax.grid(color=grid_color, linestyle='--', linewidth=1, alpha=0.8)
+    ax.plot(angles, stats, color=line_color, linewidth=2, marker='o')
+    ax.fill(angles, stats, color=line_color, alpha=0.25)
 
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(labels, fontsize=12, color=text_color, fontweight='600')
+    ax.set_xticklabels(labels, fontsize=12, fontweight='bold')
     ax.tick_params(axis='x', pad=15)
 
     ax.set_ylim(0, y_limit)
     ax.set_yticks(ticks)
-    ax.set_yticklabels(tick_labels, color='#57606a', size=10)
-    ax.set_rlabel_position(45)
+    ax.set_yticklabels(tick_labels, color="grey", size=10)
+    ax.set_rlabel_position(30)
+
+    ax.grid(color='grey', linestyle='--', linewidth=0.5, alpha=0.7)
 
     RADAR_IMG.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(RADAR_IMG, bbox_inches='tight', dpi=200, transparent=True, pad_inches=0.1)
+    plt.savefig(RADAR_IMG, bbox_inches='tight', dpi=150, transparent=True)
     plt.close()
     
     return True
@@ -194,18 +186,19 @@ def render_level(level: str | None) -> str:
 
 def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     """
-    Uses a barebones HTML table with NO indentation to ensure GitHub's
-    Markdown parser flawlessly renders the inner Markdown table.
+    Генерирует раскладку 2:1. 
+    Внутри используется исключительно чистый Markdown. 
+    HTML (таблица) нужен только для того, чтобы поставить элементы рядом.
     """
     lines = [HHCERTS_START, ""]
 
-    # Barebones HTML wrapper for 50/50 layout (NO indentation)
+    # Каркас для колонок (2/3 слева, 1/3 справа)
     lines.append('<table>')
     lines.append('<tr>')
-    lines.append('<td width="50%" valign="top">')
+    lines.append('<td width="66%" valign="middle">')
     lines.append('')
     
-    # Inner Native Markdown Table
+    # Чистая Markdown-таблица (она автоматически растянется на всю ячейку)
     lines.append('| Competency | Level | PDF |')
     lines.append('| :--- | :--- | :--- |')
     
@@ -220,12 +213,13 @@ def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
             
     lines.append('')
     lines.append('</td>')
-    lines.append('<td width="50%" valign="top">')
+    
+    # Правая колонка с радаром
+    lines.append('<td width="33%" valign="middle">')
     lines.append('')
     
-    # Image
     if has_radar:
-        lines.append(f'<img src="./certificates/radar.png?v={img_hash}" width="100%" alt="Competency Radar">')
+        lines.append(f'<img src="./certificates/radar.png?v={img_hash}" width="100%">')
     else:
         lines.append('_Radar chart requires at least 3 competencies._')
         
