@@ -21,7 +21,7 @@
     <img src="https://img.shields.io/badge/Portfolio-Live-2EA44F?style=for-the-badge&logo=githubpages&logoColor=white" alt="Portfolio">
   </a>
   <a href="https://www.ssau.ru/staff/544969444-smetana-vladimir-vladimirovich/edu" target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/badge/UNIVERCITY-Profile-1E4E8C?style=for-the-badge&logo=googlescholar&logoColor=white" alt="SSAU Profile">
+  <img src="https://img.shields.io/badge/UNIVERSITY-Profile-1E4E8C?style=for-the-badge&logo=googlescholar&logoColor=white" alt="SSAU Profile">
   </a>
 </p>
 
@@ -107,7 +107,7 @@ I specialize in low-level and server-side development, building automations, and
 
 ---
 
-### 🏆 Certificates
+### 🏆 National IT Competence Assessment System
 
 <!-- HHCERTS_START -->
 
