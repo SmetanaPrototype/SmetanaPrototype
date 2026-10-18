@@ -9,10 +9,11 @@ Generates a Radar Chart (360 diagram) and updates README.md.
 import json
 import re
 import sys
+import hashlib
 from pathlib import Path
 
 try:
-    import pymupdf as fitz  # Fixed deprecated import
+    import pymupdf as fitz
     import matplotlib.pyplot as plt
     import numpy as np
 except ImportError:
@@ -30,15 +31,13 @@ PDF_GLOB = "*Сертификат*.pdf"
 
 DEFAULT_SOURCE_NAME = "National IT Competence Assessment System"
 
-# Map Russian level names to English labels and numerical values for the chart
 LEVEL_MAP = {
     "базовый": {"label": "Junior", "value": 1},
     "средний": {"label": "Middle", "value": 2},
     "продвинутый": {"label": "Senior", "value": 3},
-    "экспертный": {"label": "Senior", "value": 3},  # Added for backwards compatibility
+    "экспертный": {"label": "Senior", "value": 3},
 }
 
-# Emoji for the Markdown table
 LEVEL_EMOJI = {
     "Junior": "🟡",
     "Middle": "🟢",
@@ -65,15 +64,14 @@ def parse_certificate(pdf_path: Path) -> dict:
         "name": None,
         "competency": None,
         "section": None,
-        "level": None,      # label: Junior/Middle/Senior
-        "score": 0,         # numeric: 1/2/3
+        "level": None,
+        "score": 0,
         "source": DEFAULT_SOURCE_NAME,
     }
 
     m = re.search(r"КОМПЕТЕНЦИЙ\s+(.+?)\s+подтвердил", text)
     if m: data["name"] = m.group(1).strip()
 
-    # Updated regex to include both "продвинутый" and "экспертный"
     m = re.search(
         r"подтвердил\s+ИТ-компетенцию\s+(.+?)\s+"
         r"(?:Теория|Практика|базовый|средний|продвинутый|экспертный)",
@@ -84,7 +82,6 @@ def parse_certificate(pdf_path: Path) -> dict:
     m = re.search(r"\b(Теория|Практика)\b", text, re.IGNORECASE)
     if m: data["section"] = SECTION_MAP.get(m.group(1).lower(), m.group(1).capitalize())
 
-    # Updated regex to include both "продвинутый" and "экспертный"
     m = re.search(r"\b(базовый|средний|продвинутый|экспертный)\s+уровень", text, re.IGNORECASE)
     if m:
         level_info = LEVEL_MAP.get(m.group(1).lower())
@@ -117,11 +114,9 @@ def collect_certificates() -> list[dict]:
 
 
 def generate_radar_chart(certs: list[dict]) -> bool:
-    """Generates a 360-degree radar chart based on highest competency levels."""
     if not certs:
         return False
 
-    # Aggregate highest score per competency
     competencies = {}
     for c in certs:
         comp = c.get("competency") or "Unknown"
@@ -137,12 +132,10 @@ def generate_radar_chart(certs: list[dict]) -> bool:
         print("[!] Need at least 3 unique competencies for a radar chart. Skipping.")
         return False
 
-    # Compute angles for each axis
     angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
     stats += stats[:1]
     angles += angles[:1]
 
-    # Dynamic Scaling
     max_score = max(stats) if stats else 1
     y_limit = max_score + 0.5 
     
@@ -154,13 +147,10 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     ax.fill(angles, stats, color='#005bff', alpha=0.25)
     ax.plot(angles, stats, color='#005bff', linewidth=2, marker='o')
 
-    # Set labels for each point
     ax.set_xticks(angles[:-1])
     ax.set_xticklabels(labels, fontsize=12, fontweight='bold')
-    # Fixed: use tick_params instead of passing 'pad' to set_xticklabels
     ax.tick_params(axis='x', pad=15)
 
-    # Y-axis (Radius) configurations with dynamic limits
     ax.set_ylim(0, y_limit)
     ax.set_yticks(ticks)
     ax.set_yticklabels(tick_labels, color="grey", size=10)
@@ -176,6 +166,13 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     return True
 
 
+def get_file_hash(path: Path) -> str:
+    """Returns a short hash of the image file to bust GitHub cache."""
+    if not path.exists():
+        return "0"
+    return hashlib.md5(path.read_bytes()).hexdigest()[:8]
+
+
 def render_level(level: str | None) -> str:
     if not level:
         return "—"
@@ -183,13 +180,13 @@ def render_level(level: str | None) -> str:
     return f"{emoji} {level}"
 
 
-def render_markdown(certs: list[dict], has_radar: bool) -> str:
+def render_markdown(certs: list[dict], has_radar: bool, img_hash: str = "") -> str:
     lines = [START_MARKER, ""]
     
-    # Insert Radar Chart image if generated
     if has_radar:
         lines.append("### 🕸 Competency Radar")
-        lines.append(f"![Competency Radar](./certificates/radar.png)")
+        # Append the image hash as a query parameter to prevent caching issues
+        lines.append(f"![Competency Radar](./certificates/radar.png?v={img_hash})")
         lines.append("")
 
     if not certs:
@@ -245,7 +242,10 @@ def main() -> int:
     if has_radar:
         print("Radar chart generated.")
     
-    block = render_markdown(certs, has_radar)
+    # Get the hash of the new image
+    img_hash = get_file_hash(RADAR_IMG)
+    
+    block = render_markdown(certs, has_radar, img_hash)
     changed = update_readme(block)
     print("README updated." if changed else "README unchanged.")
     return 0
