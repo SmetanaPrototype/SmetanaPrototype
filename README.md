@@ -109,35 +109,6 @@ I specialize in low-level and server-side development, building automations, and
 
 ### 🏆 Certificates
 
-<!-- CERTS_START -->
-
-### 📜 Certificates List
-
-| Competency | Level | Certificate |
-|---|---|---|
-| API | 🟡 Junior | [📄 Open PDF](./certificates/files/API_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| C++ | 🟡 Junior | [📄 Open PDF](./certificates/files/plusplus_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| Git | 🟢 Middle | [📄 Open PDF](./certificates/files/Git_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| Linux | 🟢 Middle | [📄 Open PDF](./certificates/files/Linux_Сертификат_ИТ_компетенций_форма_1.pdf) |
-| ООП | 🟡 Junior | [📄 Open PDF](./certificates/files/OOP_Сертификат_ИТ_компетенций_форма_1.pdf) |
-
-<!-- CERTS_END -->
-
-<p align="center">
-  <img
-    src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer&width=100%"
-    width="100%"
-    alt="footer wave"
-  />
-</p>
-
-<!-- RADAR_START -->
-
-### 🕸 Competency Radar
-![Competency Radar](./certificates/radar.png?v=6494e21f)
-
-<!-- RADAR_END -->
-
 <!-- HHCERTS_START -->
 
 <table>
