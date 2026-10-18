@@ -6,7 +6,6 @@ PDFs are stored in certificates/files/.
 Generates a Radar Chart (360 diagram) and updates README.md.
 """
 
-
 import json
 import re
 import sys
@@ -54,8 +53,8 @@ SECTION_MAP = {
 COMPETENCY_MAP = {
     "Алгоритмы и структуры данных": "Algorithms",
     "ООП": "OOP",
-    "Машинное обучение": "MLearning"
 }
+
 
 def extract_text(pdf_path: Path) -> str:
     doc = fitz.open(pdf_path)
@@ -127,7 +126,6 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     competencies = {}
     for c in certs:
         raw_comp = c.get("competency") or "Unknown"
-        # Применяем перевод для радара
         comp = COMPETENCY_MAP.get(raw_comp.strip(), raw_comp)
         
         score = c.get("score", 0)
@@ -193,10 +191,6 @@ def render_level(level: str | None) -> str:
 
 
 def wrap_long_text(text: str, max_len: int = 14) -> str:
-    """
-    Принудительно разбивает длинный текст на строки с помощью <br>,
-    чтобы он не расширял колонку таблицы.
-    """
     if not text:
         return text
     words = text.split()
@@ -219,20 +213,18 @@ def wrap_long_text(text: str, max_len: int = 14) -> str:
     return "<br>".join(lines)
 
 
-def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
+def render_block(certs: list[dict], has_radar: bool, img_name: str) -> str:
     lines = [HHCERTS_START, ""]
 
     lines.append('<table width="100%">')
     lines.append('<tr>')
     
-    # Левая колонка - 40%
     lines.append('<td width="40%" valign="top">')
     lines.append('')
     
     lines.append('| Competency | Level | PDF |')
     lines.append('| :--- | :--- | :--- |')
     
-    # Начинаем с 2 строк (заголовок и разделитель)
     physical_rows_used = 2
     
     if not certs:
@@ -241,20 +233,15 @@ def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     else:
         for c in certs:
             raw_competency = c.get("competency") or "—"
-            # Применяем перевод для таблицы
             competency = COMPETENCY_MAP.get(raw_competency.strip(), raw_competency)
-            
             competency_wrapped = wrap_long_text(competency, max_len=14)
             
             level = render_level(c.get("level"))
             file_link = f'[📄 PDF](./certificates/files/{c["file"]})' if c.get("file") else "—"
             
             lines.append(f'| **{competency_wrapped}** | {level} | {file_link} |')
-            
-            # Считаем реальные строки: 1 базовая + количество переносов <br>
             physical_rows_used += 1 + competency_wrapped.count("<br>")
     
-    # Идеальная высота таблицы (13 визуальных строк)
     target_visual_rows = 13
     
     if physical_rows_used < target_visual_rows:
@@ -265,12 +252,12 @@ def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
     lines.append('')
     lines.append('</td>')
     
-    # Правая колонка - 60% (Радар)
     lines.append('<td width="60%" valign="top">')
     lines.append('')
     
-    if has_radar:
-        lines.append(f'<img src="./certificates/radar.png?v={img_hash}" width="100%">')
+    if has_radar and img_name:
+        # Используем новое имя файла, чтобы обойти кэш
+        lines.append(f'<img src="./certificates/{img_name}" width="100%">')
     else:
         lines.append('_Radar chart requires at least 3 competencies._')
         
@@ -312,12 +299,22 @@ def main() -> int:
     CERTS_JSON.write_text(json.dumps(certs, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     has_radar = generate_radar_chart(certs)
+    img_name = ""
+    
     if has_radar:
         print("Radar chart generated.")
+        img_hash = get_file_hash(RADAR_IMG)
+        img_name = f"radar_{img_hash}.png"
+        new_path = RADAR_IMG.parent / img_name
+        
+        # Удаляем старые версии картинок, чтобы не засорять репозиторий
+        for old_file in RADAR_IMG.parent.glob("radar_*.png"):
+            old_file.unlink()
+            
+        # Переименовываем свежую картинку
+        RADAR_IMG.rename(new_path)
     
-    img_hash = get_file_hash(RADAR_IMG)
-    
-    block = render_block(certs, has_radar, img_hash)
+    block = render_block(certs, has_radar, img_name)
     changed = update_readme(block)
     print("README updated." if changed else "README unchanged.")
     return 0
