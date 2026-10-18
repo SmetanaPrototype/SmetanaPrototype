@@ -25,7 +25,6 @@ CERTS_JSON = ROOT / "certificates" / "certificates.json"
 RADAR_IMG = ROOT / "certificates" / "radar.png"
 README = ROOT / "README.md"
 
-# Unified marker for the whole block
 HHCERTS_START = "<!-- HHCERTS_START -->"
 HHCERTS_END = "<!-- HHCERTS_END -->"
 
@@ -144,38 +143,35 @@ def generate_radar_chart(certs: list[dict]) -> bool:
     ticks = list(range(1, int(max_score) + 1))
     tick_labels = ["Junior", "Middle", "Senior"][:len(ticks)]
 
-    # Aesthetics
-    fig, ax = plt.subplots(figsize=(7, 7), subplot_kw=dict(polar=True))
+    # Modern GitHub-native design
+    fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
     fig.patch.set_alpha(0)
     ax.patch.set_alpha(0)
 
-    line_color = '#2f81f7' # GitHub Blue
-    text_color = '#1F2328' # GitHub Dark Text
-    grid_color = '#D0D7DE' # GitHub Border
+    line_color = '#0969da' # GitHub Blue
+    text_color = '#24292f' # GitHub Main Text
+    grid_color = '#d0d7de' # GitHub Border Color
 
-    # Plot thick lines and nice dots
     ax.plot(angles, stats, color=line_color, linewidth=2.5, zorder=3)
     ax.fill(angles, stats, color=line_color, alpha=0.15, zorder=2)
-    ax.scatter(angles[:-1], stats[:-1], color=line_color, s=60, zorder=4, edgecolors='white', linewidth=1.5)
+    # Crisp white borders on points
+    ax.scatter(angles[:-1], stats[:-1], color=line_color, s=60, zorder=4, edgecolors='white', linewidth=2)
 
-    # Hide outer spine
     ax.spines['polar'].set_visible(False)
+    # Subtle dashed grid
+    ax.grid(color=grid_color, linestyle='--', linewidth=1, alpha=0.9)
 
-    # Solid, slightly thicker grid
-    ax.grid(color=grid_color, linestyle='-', linewidth=1, alpha=0.7)
-
-    # Larger fonts
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(labels, fontsize=14, color=text_color, fontweight='600')
-    ax.tick_params(axis='x', pad=20)
+    ax.set_xticklabels(labels, fontsize=13, color=text_color, fontweight='600')
+    ax.tick_params(axis='x', pad=15)
 
     ax.set_ylim(0, y_limit)
     ax.set_yticks(ticks)
-    ax.set_yticklabels(tick_labels, color='#57606a', size=11)
+    ax.set_yticklabels(tick_labels, color='#57606a', size=10)
     ax.set_rlabel_position(45)
 
     RADAR_IMG.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(RADAR_IMG, bbox_inches='tight', dpi=200, transparent=True, pad_inches=0.1)
+    plt.savefig(RADAR_IMG, bbox_inches='tight', dpi=200, transparent=True, pad_inches=0)
     plt.close()
     
     return True
@@ -195,50 +191,43 @@ def render_level(level: str | None) -> str:
 
 
 def render_block(certs: list[dict], has_radar: bool, img_hash: str) -> str:
-    """Generates the unified 50/50 layout using Flexbox divs (bypasses GitHub table CSS)."""
+    """
+    Generates the 50/50 layout.
+    CRITICAL: The Markdown table MUST NOT be indented, or GitHub parses it as a code block.
+    """
     lines = [HHCERTS_START, ""]
     
-    # Outer flex container: Aligns items in the middle, allows wrapping on mobile
-    lines.append('<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 30px;">')
+    # Outer table strictly for layout, hide its borders
+    lines.append('<table border="0" cellspacing="0" cellpadding="10" style="border: none; background-color: transparent; width: 100%; border-collapse: collapse;">')
+    lines.append('  <tr>')
+    lines.append('    <td width="50%" valign="middle" style="border: none; padding-right: 20px;">')
+    lines.append('') # Blank line required for Markdown parsing
     
-    # --- LEFT SIDE (List) ---
-    lines.append('<div style="flex: 1; min-width: 300px;">')
+    # Inner Markdown Table (NO INDENTATION!)
+    lines.append('| Competency | Level | PDF |')
+    lines.append('| :--- | :--- | :--- |')
     
-    # Header Row
-    lines.append('<div style="display: flex; font-weight: 600; color: #57606a; border-bottom: 2px solid #d0d7de; padding-bottom: 8px; margin-bottom: 8px; font-size: 14px;">')
-    lines.append('  <div style="flex: 2;">Competency</div>')
-    lines.append('  <div style="flex: 1;">Level</div>')
-    lines.append('  <div style="flex: 1;">PDF</div>')
-    lines.append('</div>')
-
     if not certs:
-        lines.append('<div style="padding: 20px 0; text-align: center; color: #57606a;">_No certificates yet._</div>')
+        lines.append('| _No certificates yet._ | | |')
     else:
         for c in certs:
             competency = c.get("competency") or "—"
             level = render_level(c.get("level"))
-            file_link = f'<a href="./certificates/files/{c["file"]}">📄 PDF</a>' if c.get("file") else "—"
+            file_link = f'[📄 PDF](./certificates/files/{c["file"]})' if c.get("file") else "—"
+            lines.append(f'| **{competency}** | {level} | {file_link} |')
             
-            # Data Row
-            lines.append('<div style="display: flex; padding: 12px 0; border-bottom: 1px solid #d0d7de;">')
-            lines.append(f'  <div style="flex: 2; font-weight: 600;">{competency}</div>')
-            lines.append(f'  <div style="flex: 1;">{level}</div>')
-            lines.append(f'  <div style="flex: 1;">{file_link}</div>')
-            lines.append('</div>')
-            
-    lines.append('</div>') # End Left Side
-    
-    # --- RIGHT SIDE (Radar) ---
-    lines.append('<div style="flex: 1; min-width: 300px; text-align: center;">')
+    lines.append('') # Blank line required for Markdown parsing
+    lines.append('    </td>')
+    lines.append('    <td width="50%" valign="middle" align="center" style="border: none;">')
     
     if has_radar:
-        lines.append(f'  <img src="./certificates/radar.png?v={img_hash}" alt="Competency Radar" style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />')
+        lines.append(f'      <img src="./certificates/radar.png?v={img_hash}" alt="Competency Radar" style="max-width: 100%; height: auto; max-width: 400px;" />')
     else:
-        lines.append('  <p style="color: #57606a;">_Radar chart requires at least 3 competencies._</p>')
+        lines.append('      <p style="color: #57606a;">_Radar chart requires at least 3 competencies._</p>')
         
-    lines.append('</div>') # End Right Side
-    
-    lines.append('</div>') # End Outer Flex Container
+    lines.append('    </td>')
+    lines.append('  </tr>')
+    lines.append('</table>')
     lines.append("")
     lines.append(HHCERTS_END)
     
