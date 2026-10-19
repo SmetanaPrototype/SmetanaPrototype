@@ -143,3 +143,13 @@ I specialize in low-level and server-side development, building automations, and
     alt="footer wave"
   />
 </p>
+
+<!-- <div align="center">
+  <a href="https://leetcode.com/VladimirSmetana/">
+    <img height="165" src="https://leetcard.jacoblin.cool/VladimirSmetana?theme=dark&font=Nunito&hide_border=true" alt="LeetCode" />
+  </a>
+  <br/><br/>
+  <a href="https://www.codewars.com/users/VladimirSmetana">
+    <img src="https://www.codewars.com/users/VladimirSmetana/badges/large" alt="Codewars" />
+  </a>
+</div> -->
