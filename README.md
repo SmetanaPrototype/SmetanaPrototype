@@ -144,12 +144,24 @@ I specialize in low-level and server-side development, building automations, and
   />
 </p>
 
-<!-- <div align="center">
-  <a href="https://leetcode.com/VladimirSmetana/">
-    <img height="165" src="https://leetcard.jacoblin.cool/VladimirSmetana?theme=dark&font=Nunito&hide_border=true" alt="LeetCode" />
-  </a>
-  <br/><br/>
-  <a href="https://www.codewars.com/users/VladimirSmetana">
-    <img src="https://www.codewars.com/users/VladimirSmetana/badges/large" alt="Codewars" />
-  </a>
-</div> -->
+
+<!-- <table align="center" border="0">
+  <tr>
+    <td valign="top" align="center">
+      <a href="https://leetcode.com/VladimirSmetana/">
+        <img height="165" src="https://leetcard.jacoblin.cool/VladimirSmetana?theme=dark&font=Nunito&hide_border=true" alt="LeetCode" />
+      </a>
+      <br/><br/>
+      <a href="https://www.codewars.com/users/VladimirSmetana">
+        <img src="https://www.codewars.com/users/VladimirSmetana/badges/large" alt="Codewars" />
+      </a>
+    </td>
+    <td width="30"></td>
+    <td valign="top" align="center">
+      <img width="495" src="https://streak-stats.demolab.com?user=VladimirSmetana&theme=dark&hide_border=true" alt="GitHub Streak" />
+      <br/>
+      <img width="495" src="https://github-readme-stats.vercel.app/api?username=VladimirSmetana&theme=dark&hide_border=true&show_icons=true" alt="GitHub Stats" />
+    </td>
+  </tr>
+</table> -->
+
